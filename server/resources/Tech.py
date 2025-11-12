@@ -1,63 +1,30 @@
-from flask import make_response, session, request
-from flask_restful import Resource
-
-from config import db 
-
 from models.TechModel import TechModel
 
-class TechList(Resource):
+from resources.BaseResource import BaseResource
+
+class TechList(BaseResource):
+    model = TechModel
+
+    field_map = {
+        "techName": "name",
+        "techImg": "img",
+        "techType": "tech_type"
+    }
+
     def get(self):
-        technologies = [tech.to_dict() for tech in TechModel.query.all()]
-        return technologies, 200
+        return self.get_all()
     
     def post(self):
-        json = request.get_json()
+        return self.create_instance()
+    
+class Tech(BaseResource):
+    model = TechModel
 
-        if json:
-            try:
-                new_tech = TechModel(
-                    name = json.get("techName"),
-                    img = json.get("techImg"),
-                    tech_type = json.get("techType")
-                )
-                db.session.add(new_tech)
-                db.session.commit()
-                return new_tech.to_dict(), 201 
-            except ValueError as e:
-                return {"error": [str(e)]}
-
-class Tech(Resource):
     def get(self, id):
-        tech = TechModel.query.filter(TechModel.id == id).first()
-        if tech:
-            return tech.to_dict(), 200 
-        else:
-            return {"error": f"Tech {id} was not found"}, 404
-        
+        return self.get_specific(id)
+    
     def patch(self, id):
-        tech = TechModel.query.filter(TechModel.id == id).first()
-
-        data = request.get_json()
-
-        if tech:
-            try:
-                for attr in data:
-                    setattr(tech, attr, data[attr])
-                db.session.add(tech)
-                db.session.commit()
-                return make_response(tech.to_dict(), 202)
-            except ValueError as e:
-                return{"error": [str(e)]}
-        
-        else:
-            return{"error": f"Tech {id} not found."}, 404
+        return self.patch_specific(id)
     
     def delete(self, id):
-        tech = TechModel.query.filter(TechModel.id == id).first()
-
-        if tech:
-            db.session.delete(tech)
-            db.session.commit()
-            return {"message": f"Tech {id} deleted."}, 201
-        else:
-            return {"error": f"Tech {id} not found"}, 404
+        return self.delete_instance(id)

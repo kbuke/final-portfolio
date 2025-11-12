@@ -70,7 +70,6 @@ class InstituteModel(db.Model, SerializerMixin):
 
                 except:
                     raise ValueError("Please enter a valid end-date.")
-            breakpoint()
             if start_date > end_date:
                 raise ValueError(f"Value must be after {start_date}")
             
