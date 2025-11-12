@@ -39,8 +39,6 @@ class Tech(Resource):
 
         data = request.get_json()
 
-        breakpoint()
-
         if tech:
             try:
                 for attr in data:
