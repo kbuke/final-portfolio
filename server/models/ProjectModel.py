@@ -13,6 +13,8 @@ class ProjectModel(db.Model, SerializerMixin):
     intro = db.Column(db.String, nullable = False)
     start_date = db.Column(db.Date, nullable = False)
     end_date = db.Column(db.Date)
+    git_link = db.Column(db.String)
+    web_link = db.Column(db.String)
 
     # VALIDATIONS
         # validate project name
