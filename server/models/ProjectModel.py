@@ -3,6 +3,8 @@ from sqlalchemy_serializer import SerializerMixin
 from config import db 
 from datetime import date, datetime
 
+from models.InstituteModel import InstituteModel
+
 class ProjectModel(db.Model, SerializerMixin):
     __tablename__ = "projects"
 
@@ -15,6 +17,15 @@ class ProjectModel(db.Model, SerializerMixin):
     end_date = db.Column(db.Date)
     git_link = db.Column(db.String)
     web_link = db.Column(db.String)
+
+    # RELATIONS
+        # Institute the project was created at (one-to-MANY)
+    institute_id = db.Column(db.ForeignKey("institute.id"))
+    institute = db.relationship("InstituteModel", back_populates = "projects")
+
+    serialize_rules = (
+        "-institute.projects",
+    )
 
     # VALIDATIONS
         # validate project name
@@ -75,8 +86,41 @@ class ProjectModel(db.Model, SerializerMixin):
                 except:
                     raise ValueError("Please enter a valid end-date.")
             if start_date > end_date:
-                raise ValueError(f"Value must be after {start_date}")
+                raise ValueError(f"Projects end date must be after {start_date}")
             
             return end_date
         
         return value
+    
+        # validate institute
+    @validates("institute_id")
+    def validate_institute(self, key, value):
+        # 1 - Check value is not a boolean or empty value
+        if isinstance(value, bool) or value is None:
+            raise ValueError("Please enter valid institute id")
+        
+        # 2 - Check if value is type string
+        if not isinstance(value, int):
+            try:
+                value = int(value)
+            except:
+                raise ValueError("Please enter a vald integer")
+            
+        # 3 - Check institute exists
+        existing_institute = InstituteModel.query.filter(InstituteModel.id == value).first()
+        if not existing_institute:
+            raise ValueError(f"Institute {value} not registered")
+        
+        # 4 - Define values for instiute
+        institute_start_date = existing_institute.start_date
+        institute_end_date = existing_institute.end_date
+        
+        # 5 - Check project is in-line with the institute dates
+        if self.start_date <= institute_start_date:
+            raise ValueError(f"You must have started project before or on {institute_start_date}")
+        
+        if (institute_end_date and not self.end_date) or institute_end_date < self.end_date:
+            raise ValueError(f"You must have finished project by {institute_end_date}")
+        
+        return value
+        

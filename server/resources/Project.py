@@ -11,7 +11,10 @@ class ProjectList(BaseResource):
         "projectVideo": "video",
         "projectIntro": "intro",
         "projectStartDate": "start_date",
-        "projectEndDate": "end_date"
+        "projectEndDate": "end_date",
+        "gitLink": "git_link",
+        "webLink": "web_link",
+        "instituteId": "institute_id"
     }
 
     def get(self):

@@ -12,6 +12,14 @@ class InstituteModel(db.Model, SerializerMixin):
     start_date = db.Column(db.Date, nullable = False)
     end_date = db.Column(db.Date, nullable = True)
 
+    # RELATIONS
+        # Projects
+    projects = db.relationship("ProjectModel", back_populates = "institute")
+
+    serialize_rules = (
+        "-projects.institute",
+    )
+
     # VALIDATIONS 
         # validate institute name 
     @validates("name")
