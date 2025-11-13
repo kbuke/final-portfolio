@@ -14,10 +14,12 @@ class InstituteModel(db.Model, SerializerMixin):
 
     # RELATIONS
         # Projects
-    projects = db.relationship("ProjectModel", back_populates = "institute")
+    project = db.relationship("ProjectModel", back_populates = "institute")
 
     serialize_rules = (
-        "-projects.institute",
+        "-project.institute",
+        "-project.points",
+        "-project.sections",
     )
 
     # VALIDATIONS 

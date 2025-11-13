@@ -22,7 +22,7 @@ class BaseResource(Resource):
     # POST new instance to model
     def create_instance(self):
         data = request.get_json()
-
+        
         if not data:
             return {"error": "Missing JSON data"}, 404 
         

@@ -21,10 +21,20 @@ class ProjectModel(db.Model, SerializerMixin):
     # RELATIONS
         # Institute the project was created at (one-to-MANY)
     institute_id = db.Column(db.ForeignKey("institute.id"))
-    institute = db.relationship("InstituteModel", back_populates = "projects")
+    institute = db.relationship("InstituteModel", back_populates = "project")
+
+        # Points (ONE-to-many)
+    points = db.relationship("ProjectPointModel", back_populates = "project")
+
+        # Sections (ONE-to-many)
+    sections = db.relationship("ProjectSectionModel", back_populates = "project")
 
     serialize_rules = (
         "-institute.projects",
+
+        "-points.project",
+
+        "-sections.project",
     )
 
     # VALIDATIONS

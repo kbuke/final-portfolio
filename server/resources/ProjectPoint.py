@@ -1,14 +1,11 @@
 from resources.BaseResource import BaseResource
-from models.ProjectSectionModel import ProjectSectionModel
+from models.ProjectPointModel import ProjectPointModel
 
-class ProjectSectionList(BaseResource):
-    model = ProjectSectionModel
+class ProjectPointList(BaseResource):
+    model = ProjectPointModel
 
     field_map = {
-        "sectionHeading": "heading",
-        "sectionText": "text",
-        "sectionImg1": "img_1",
-        "sectionImg2": "img_2",
+        "projectPoint": "point",
         "projectId": "project_id"
     }
 
@@ -18,9 +15,7 @@ class ProjectSectionList(BaseResource):
     def post(self):
         return self.create_instance()
     
-class ProjectSection(BaseResource):
-    model = ProjectSectionModel
-    
+class ProjectPoint(BaseResource):
     def get(self, id):
         return self.get_specific(id)
     

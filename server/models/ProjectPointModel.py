@@ -1,33 +1,30 @@
 from sqlalchemy.orm import validates
 from sqlalchemy_serializer import SerializerMixin
 
+from config import db 
+
 from models.ProjectModel import ProjectModel
 
-from config import db
-
-class ProjectSectionModel(db.Model, SerializerMixin):
-    __tablename__ = "project-sections"
+class ProjectPointModel(db.Model, SerializerMixin):
+    __tablename__ = "points"
 
     id = db.Column(db.Integer, primary_key = True)
-    heading = db.Column(db.String, nullable = False)
-    text = db.Column(db.String, nullable = False)
-    img_1 = db.Column(db.String, nullable = True)
-    img_2 = db.Column(db.String, nullable = True)
+    point = db.Column(db.String, nullable = False)
 
     # RELATIONS
         # Project relationship
     project_id = db.Column(db.ForeignKey("projects.id"))
-    project = db.relationship("ProjectModel", back_populates = "sections")
+    project = db.relationship("ProjectModel", back_populates = "points")
 
     serialize_rules = (
-        "-project.sections",
-        "-project.institute",
         "-project.points",
+        "-project.institute",
+        "-project.sections",
     )
-    
+
     # VALIDATIONS
-    @validates("heading")
-    def validate_heading(self, key, value):
+    @validates("point")
+    def validate_point(self, key, value):
         # 1 - ensure the value is not null or an empty string or a boolean
         if isinstance(value, bool) or value is None or value.strip() == "":
             raise ValueError("Please enter a valid project point")
@@ -59,20 +56,13 @@ class ProjectSectionModel(db.Model, SerializerMixin):
             raise ValueError(f"Project {value} is not registered on the app")
         
         # 3 - Ensure the point doesnt exist for the project
-        if hasattr(self, "heading") and self.heading:
-            existing_heading = ProjectSectionModel.query.filter(
-                db.func.lower(ProjectSectionModel.heading) == self.heading.lower(),
-                ProjectSectionModel.project_id == value
+        if hasattr(self, "point") and self.point:
+            existing_point = ProjectPointModel.query.filter(
+                db.func.lower(ProjectPointModel.point) == self.point.lower(),
+                ProjectPointModel.project_id == value
             ).first()
 
-            if existing_heading and existing_heading.id != self.id:
-                raise ValueError(f"The heading {self.heading} already exists for project: {value}")
+            if existing_point and existing_point.id != self.id:
+                raise ValueError(f"The point {self.point} already exists for project: {value}")
             
-        return value
-
-    @validates("text")
-    def validate_text(self, key, value):
-        if value is None or value.strip() == "":
-            raise ValueError("Please enter a valid input")
-        
         return value
