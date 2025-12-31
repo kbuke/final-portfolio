@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+/* Define things like divs and h1 tags */
+@layer base {
+    h1{
+        @apply text-6xl;
+    }
+}
+
+/* Define classes to use in your frontend */
+@layer components{
+    .sectionHeading{
+        @apply text-4xl uppercase;
+    }
+}
+
+/* Change predefined values in Tailwind */
+@theme {
+    --text-lg: 40px
+}
