@@ -2,7 +2,6 @@ from sqlalchemy.orm import validates
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.hybrid import hybrid_property
 
-
 from config import db, bcrypt
 
 class UserModel(db.Model, SerializerMixin):
