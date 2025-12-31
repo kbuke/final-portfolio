@@ -17,6 +17,3 @@ class SpecificUser(BaseResource):
     
     def patch(self, id):
         return self.patch_instance(id)
-    
-    def delete(self, id):
-        return self.delete_instance(id)
