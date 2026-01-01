@@ -6,6 +6,7 @@ from datetime import date, datetime
 from config import db, bcrypt
 
 from validators.validate_dates import validate_dates
+from validators.validate_uniqueness import validate_uniqueness
 
 class ProjectModel(db.Model, SerializerMixin):
     __tablename__ = "projects"
@@ -18,6 +19,22 @@ class ProjectModel(db.Model, SerializerMixin):
     end_date = db.Column(db.Date, nullable = True)
     web_url = db.Column(db.String, nullable = True, unique = True)
     git_url = db.Column(db.String, nullable = True, unique = True)
+
+    tech = db.relationship("TechnologyModel", back_populates = "projects", secondary = "project_tech")
+
+    points = db.relationship("ProjectPointModel", back_populates = "project")
+
+    serialize_rules = (
+        "-tech.projects",
+        "-points.project",
+    )
+
+    # VALIDATE PROJECT NAME
+    @validates("name")
+    def validate_project_name(self, key, value):
+        value = validate_uniqueness(value, self, ProjectModel, key, "Project Model")
+
+        return value
 
     # VALIDATE START DATE
     @validates("start_date")

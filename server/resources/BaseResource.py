@@ -32,9 +32,14 @@ class BaseResource(Resource):
             mapped_data[mapped_key] = value
         try:
             new_record = self.model(**mapped_data)
+
+            if hasattr(new_record, "validate_unique"):
+                new_record.validate_unique()
+
             db.session.add(new_record)
             db.session.commit()
             return new_record.to_dict(), 201
+        
         except ValueError as e:
             db.session.rollback()
             return {"error": [str(e)]}, 400 
