@@ -6,13 +6,15 @@ export function Contact({
     appData
 }){
     return(
-        <div className="p-2">
+        <div className="p-2" id="contact-section">
             <h1 className="section-heading">
                 Contact
             </h1>
             <SectionUnderline />
 
-            {/* <SocialMedia /> */}
+            <SocialMedia 
+                appData={appData}
+            />
 
             <SendEmail 
                 appData={appData}

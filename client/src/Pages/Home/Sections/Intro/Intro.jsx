@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react"
 import frontMan from "../../../../Resources/front-man.png"
+import { Cv } from "./IntroSections/Cv"
 
 export function Intro({
     appData
 }){
     const [frontendTech, setFrontendTech] = useState()
+    const [openCv, setOpenCv] = useState()
 
     const userInfo = appData?.allUsers
+
+    const userCv = userInfo?.cv
 
     const allTech = appData?.allTech
 
@@ -21,13 +25,15 @@ export function Intro({
             </p>
 
             <div className="intro-button-container">
-                <button className="cv-button">
+                <button className="cv-button" onClick={() => setOpenCv(true)}>
                     C.V.
                 </button>
 
-                <button className="contact-button">
+                <a className="
+                    contact-button w-40 h-15 mt-5 rounded-xl text-white text-center flex justify-center items-center
+                " href="#contact-section">
                     Contact Me
-                </button>
+                </a>
             </div>
 
             <div>
@@ -35,6 +41,14 @@ export function Intro({
                     src={frontMan}
                 />
             </div>
+
+            {openCv
+                ? <Cv 
+                    userCv={userCv}
+                    setPopUp={setOpenCv}
+                />
+                : null
+            }
         </div>
     )
 }

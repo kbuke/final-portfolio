@@ -8,8 +8,6 @@ export function Projects({
 }){
     const allProjects = appData?.allProjects
 
-    console.log(allProjects)
-
     return(
         <div>
             <h1 className="section-heading">
@@ -35,23 +33,25 @@ export function Projects({
                 const fETech = filterTech("Frontend")
                 const bETech = filterTech("Backend")
 
-                const renderTech = (technology, text) => {
+                const renderTech = (technology, text, rightBorder) => {
                     return(
-                        <div className="p-5">
-                            <h3 className="text-center mb-3 font-bold uppercase tracking-wider">
-                                {text}
-                            </h3>
+                        technology.length > 0
+                            ? <div className={`p-5 justify-center items-center ${rightBorder ? `border-r` : null}`}>
+                                <h3 className="text-center mb-3 font-bold uppercase tracking-wider">
+                                    {text}
+                                </h3>
 
-                            <div className="grid grid-cols-2">
-                                {technology.map((tech, index) => (
-                                    <img 
-                                        key={index}
-                                        src={tech?.logo}
-                                        className="h-15 w-15 p-3 rounded-full border justify-self-center"
-                                    />
-                                ))}
+                                <div className="grid grid-cols-2">
+                                    {technology.map((tech, index) => (
+                                        <img 
+                                            key={index}
+                                            src={tech?.logo}
+                                            className="h-15 w-15 p-3 rounded-full border justify-self-center"
+                                        />
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                            : null
                     )
                 } 
 
@@ -117,7 +117,7 @@ export function Projects({
                             </ul>
 
                             <div className="grid grid-cols-2">
-                                {renderTech(fETech, "Frontend")}
+                                {renderTech(fETech, "Frontend", true)}
                                 {renderTech(bETech, "Backend")}
                             </div>
                         </div>

@@ -1,24 +1,5 @@
 @import "tailwindcss";
 
-/* Define things like divs and h1 tags */
-/* @layer base {
-    h1{
-        @apply text-6xl;
-    }
-} */
-
-/* Define classes to use in your frontend */
-/* @layer components{
-    .sectionHeading{
-        @apply text-4xl uppercase;
-    }
-} */
-
-/* Change predefined values in Tailwind */
-/* @theme {
-    --text-lg: 40px
-} */
-
 /* ------------------------------------ DEFINE TAILWIND CLASSES ------------------------------------ */
 @theme{
     --text-lg: 35px
@@ -60,8 +41,6 @@
 }
 
 
-
-
 @layer base{
     button{
         @apply
@@ -70,6 +49,11 @@
             mt-5
             rounded-xl
             text-white
+            text-center
+            flex
+            justify-center
+            items-center
+            shadow-2xl
     }
 }
 
@@ -85,8 +69,8 @@
 
     .intro-button-container{
         @apply
-            grid
-            grid-cols-2
+            flex
+            flex-row
             gap-2
     }
 
@@ -142,8 +126,10 @@
         @apply
             absolute
             top-3
-            w-70/100
-            h-29;
+            w-7/10
+            /* w-70/100 */
+            /* h-29 */
+            ;
     }
 
     .project-button-div{
@@ -174,4 +160,24 @@
     }
 }
 
+/* ------------------------------------ SOCIALS ------------------------------------ */
+@layer components{
+    .social-icon{
+        @apply 
+            rounded-xl
+            w-22.5
+            h-22.5
+            flex
+            justify-center
+            items-center
+            bg-[#10ac84]
+            text-[#f1f1f1]
+            shadow-2xl
+    }
+
+    .social-icon-img{
+        @apply 
+            text-[45px]
+    }
+}
 

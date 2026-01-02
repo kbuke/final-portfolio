@@ -10,11 +10,14 @@ function App() {
     const [allTech, setAllTech] = useState()
     const [allProjects, setAllProjects] = useState()
     const [allEmails, setAllEmails] = useState()
+    const [allSocials, setAllSocials] = useState()
 
     useFetch("/api/users/1", setAllUsers)
     useFetch("/api/technologies", setAllTech)
     useFetch("/api/projects", setAllProjects)
     useFetch("/api/emails", setAllEmails)
+    useFetch("/api/socials", setAllSocials)
+
 
     const {
         register,
@@ -24,12 +27,15 @@ function App() {
         control
     } = useForm()
 
+    console.log(allSocials)
+
     const outletContext = {
         isLoading, setIsLoading,
         allUsers, setAllUsers,
         allTech, setAllTech,
         allEmails, setAllEmails,
         allProjects, setAllProjects,
+        allSocials, setAllSocials,
 
         register, handleSubmit,
         errors, reset, control

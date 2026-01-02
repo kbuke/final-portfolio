@@ -78,11 +78,6 @@ export function SendEmail({
             </h2>
             <SecondaryTitleUnderline />
             
-            {/* <TextContainers 
-                inputArray = {emailArray}
-                register = {register}
-                errors = {errors}
-            /> */}
             {isLoading
                 ? <LoadingIcon />
                 : emailSent
