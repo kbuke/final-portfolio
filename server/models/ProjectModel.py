@@ -3,7 +3,7 @@ from sqlalchemy_serializer import SerializerMixin
 
 from datetime import date, datetime
 
-from config import db, bcrypt
+from config import db
 
 from validators.validate_dates import validate_dates
 from validators.validate_uniqueness import validate_uniqueness
