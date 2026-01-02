@@ -1,4 +1,5 @@
 import { ProjectLinkButtons } from "../../../../Components/Buttons/ProjectLinkButtons"
+import { SecondaryTitleUnderline } from "../../../../Components/SecondaryTitleUnderline"
 import { SectionUnderline } from "../../../../Components/SectionUnderline"
 import computerScreen from "../../../../Resources/computer-screen.png"
 
@@ -84,11 +85,11 @@ export function Projects({
                         <div
                             className="specific-project-info"
                         >
-                            <h2 className="project-title">
+                            <h2 className="secondary-header">
                                 {project?.name}
                             </h2>
 
-                            <div className="w-4/5 h-1 bg-linear-to-r from-purple-500 to-green-500 justify-self-center mb-3"></div>
+                            <SecondaryTitleUnderline />
 
                             <p className="flex justify-self-center mb-2 font-bold">
                                 {project?.start_date}{" - "} 

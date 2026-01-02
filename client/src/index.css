@@ -47,6 +47,16 @@
             justify-self-center
             ;
     }
+
+    .secondary-header{
+        @apply
+            uppercase
+            text-center
+            text-lg
+            font-bold
+            tracking-wide
+            ; 
+    }
 }
 
 
@@ -134,16 +144,6 @@
             top-3
             w-70/100
             h-29;
-    }
-
-    .project-title{
-        @apply 
-            uppercase
-            text-center
-            text-lg
-            font-bold
-            tracking-wide
-            ;
     }
 
     .project-button-div{
