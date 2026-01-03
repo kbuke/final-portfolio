@@ -9,7 +9,7 @@ export function TextContainers({ inputArray, register, errors }) {
             <input
               type={input.type}
               placeholder={input.placeholder}
-              className="rounded w-9/10 text-center bg-white"
+              className="rounded w-full border text-center bg-white"
               {...register(input.name, input.validation)}
             />
           ) : (

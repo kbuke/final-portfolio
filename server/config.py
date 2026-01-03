@@ -5,17 +5,20 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from sqlalchemy import MetaData
+from dotenv import load_dotenv
 
 # Create passkey for project and then download load_dotenv from dotenv below
 
 import os
+
+load_dotenv()
 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///app.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-app.config['SECRET_KEY'] = os.getenv("APP_SECRET_KEY")
+app.config['SECRET_KEY'] = os.getenv("APP_PASSWORD")
 
 metadata = MetaData(naming_convention={
     "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s"

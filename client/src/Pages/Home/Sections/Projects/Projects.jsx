@@ -24,6 +24,9 @@ export function Projects({
                 const projectGitUrl = project?.git_url
                 const projectWebUrl = project?.web_url
 
+                const projectInstitute = project?.institute
+                console.log(projectInstitute)
+
                 const filterTech = (techType) => {
                     return(
                         projectTech?.filter(tech => tech.tech_type === techType)
@@ -140,6 +143,33 @@ export function Projects({
                                             {projectLinkButton(projectGitUrl, "GitHub Repo", "git-repo-button")}
 
                                             {projectLinkButton(projectWebUrl, "Web App", "web-link-button")}
+                                        </div>
+                                    </div>
+
+                                    <div className="
+                                        hidden
+                                        md:flex
+                                        md:gap-4
+                                        md:col-span-2
+                                        md:border-t
+                                        md:border-white
+                                        md:justify-self-center
+                                        md:p-3
+                                        md:w-[65%]
+                                        md:justify-center
+                                        md:items-center
+                                    ">
+                                        <img 
+                                            src={projectInstitute?.logo}
+                                            className="h-20 w-20 rounded-full"
+                                        />
+
+                                        <div className="text-center">
+                                            <h3 className="font-bold uppercase text-[20px] underline decoration-double tracking-wider underline-offset-4 decoration-amber-600">
+                                                {projectInstitute?.name}
+                                            </h3>
+                                            <p className="mt-2">{projectInstitute?.start_date} - {projectInstitute?.end_date}</p>
+                                            <p>{projectInstitute?.info}</p>
                                         </div>
                                     </div>
                             </div>

@@ -1,0 +1,104 @@
+import { useState } from "react"
+import { FormGroup } from "../../Components/FormGroup"
+import { TextContainers } from "../../Components/TextContainers"
+import { useNavigate, useOutletContext } from "react-router"
+import { usePost } from "../../Hooks/usePost"
+
+export function Login(){
+    const [loginError, setLoginError] = useState(false)
+    const [loggedIn, setLoggedIn] = useState(false)
+
+    const navigate = useNavigate()
+
+    const appData = useOutletContext()
+
+    const loggedUser = appData?.loggedUser
+    const setLoggedUser = appData?.setLoggedUser
+
+    const register = appData?.register 
+    const errors = appData?.errors
+    const handleSubmit = appData?.handleSubmit
+    const isLoading = appData?.isLoading
+    const setIsLoading = appData?.setIsLoading
+
+    const handleLogin = (formData) => {
+        usePost({
+            url: "/api/login",
+            body: formData,
+            credentials: "include",
+            setLoading: setIsLoading,
+            onSuccess: (user) => {
+                setLoggedUser(user)
+                navigate("/admin")
+            },
+            onError: msg => {
+                setLoginError(msg || "Login Failed")
+            }
+        })
+    }
+
+    const loginArray = [
+        {
+            label: "Please enter email address",
+            type: "text",
+            name: "userEmail",
+            validation: {
+                required: "Please enter your email"
+            },
+            placeholder: "Please enter email"
+        },
+
+        {
+            label: "Please enter your password",
+            type: "password",
+            name: "userPassword",
+            validation: {
+                required: "Please enter your password"
+            },
+            placeholder: "Please enter password"
+        }
+    ]
+
+    const loginInputs = (inputArray) => (
+        inputArray?.map((input, index) => (
+            <>
+                <input 
+                    key={index}
+                    placeholder={input?.placeholder}
+                    type={input?.type}
+                    {...register(input?.name, input?.validation)}
+                    className="bg-white mb-2 w-full text-center rounded h-10"
+                />
+
+                <FormGroup errorMessage={errors?.[input.name]?.message} />
+            </>
+        ))
+    )
+
+    return(
+        <div className="w-full h-full flex absolute justify-center items-center
+        bg-linear-to-br from-purple-100 to-blue-300
+        ">
+            <form
+                className="
+                    rounded-xl p-10 bg-black/40 text-center w-[80%] md:w-[40%] lg:w-[30%]
+                    flex flex-col justify-center items-center
+                "
+                onSubmit={handleSubmit(handleLogin)}
+            >
+                <h2 className="text-white uppercase mb-3 font-bold text-xl">
+                    Login
+                </h2>
+
+                {loginInputs(loginArray)}
+
+                <button className="
+                    bg-linear-to-r from-green-600 to-green-800
+                    uppercase tracking-wider
+                ">
+                    Login
+                </button>
+            </form>
+        </div>
+    )
+}

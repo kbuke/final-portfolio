@@ -9,6 +9,11 @@ from resources.Socials import SocialsList, SpecificSocial
 from resources.Institute import InstituteList, SpecificInstitute
 from resources.Email import EmailList
 
+from resources.Login import Login
+from resources.Logout import Logout
+from resources.CheckSession import CheckSession
+
+
 api.add_resource(UserList, "/users")
 api.add_resource(SpecificUser, "/users/<int:id>")
 
@@ -31,6 +36,12 @@ api.add_resource(InstituteList, "/institutes")
 api.add_resource(SpecificInstitute, "/institutes/<int:id>")
 
 api.add_resource(EmailList, "/emails")
+
+api.add_resource(Login, "/login")
+
+api.add_resource(Logout, "/logout")
+
+api.add_resource(CheckSession, "/session")
 
 if __name__ == "__main__":
     app.run(port = 5555, debug = True)

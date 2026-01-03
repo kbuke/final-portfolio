@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form"
 
 function App() {
     const [isLoading, setIsLoading] = useState(false)
+    const [loggedUser, setLoggedUser] = useState()
     const [allUsers, setAllUsers] = useState()
     const [allTech, setAllTech] = useState()
     const [allProjects, setAllProjects] = useState()
@@ -27,10 +28,9 @@ function App() {
         control
     } = useForm()
 
-    console.log(allSocials)
-
     const outletContext = {
         isLoading, setIsLoading,
+        loggedUser, setLoggedUser,
         allUsers, setAllUsers,
         allTech, setAllTech,
         allEmails, setAllEmails,

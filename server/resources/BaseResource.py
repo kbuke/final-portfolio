@@ -36,6 +36,9 @@ class BaseResource(Resource):
             if hasattr(new_record, "validate_unique"):
                 new_record.validate_unique()
 
+            if hasattr(new_record, "validate_institute_dates"):
+                new_record.validate_institute_dates()
+
             db.session.add(new_record)
             db.session.commit()
             return new_record.to_dict(), 201
