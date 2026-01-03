@@ -11,7 +11,7 @@ export function PopUp({
         >
             <FontAwesomeIcon 
                 icon={faTimes}
-                className='text-red-400 h-20 absolute top-2 right-1'
+                className='text-red-400 h-20 absolute top-1 right-3 cursor-pointer rounded-full p-2 bg-white'
                 onClick={() => setPopUp(false)}
             />
             {formContainer}

@@ -15,7 +15,7 @@ export function TextContainers({ inputArray, register, errors }) {
           ) : (
             <textarea
               placeholder={input.placeholder}
-              className="rounded w-9/10 text-center bg-white h-20"
+              className="rounded w-9/10 text-center bg-white lg:h-40"
               {...register(input.name, input.validation)}
             />
           )}

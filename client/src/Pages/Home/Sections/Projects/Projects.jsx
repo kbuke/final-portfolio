@@ -41,12 +41,15 @@ export function Projects({
                                     {text}
                                 </h3>
 
-                                <div className="grid grid-cols-2">
+                                <div className="grid grid-cols-2 md:gap-2">
                                     {technology.map((tech, index) => (
                                         <img 
                                             key={index}
                                             src={tech?.logo}
-                                            className="h-15 w-15 p-3 rounded-full border justify-self-center"
+                                            className="
+                                                h-15 w-15 p-3 rounded-full border justify-self-center
+                                                md:p-0 md:h-17 md:w-17
+                                            "
                                         />
                                     ))}
                                 </div>
@@ -66,67 +69,80 @@ export function Projects({
                 )
 
                 return(
-                    <div
-                        key={index}
-                        className="specific-project-container"
-                    >
-                        <div className="specific-project-img-container">
-                            <img 
-                                src={computerScreen}
-                                className="computer-screen"
-                            />
-
-                            <img 
-                                src={project?.img}
-                                className="project-img"
-                            />
-                        </div>
-
+                    <div className="
+                        relative overflow-hidden mt-3 
+                        md:w-[98%] md:rounded-2xl md:justify-self-center
+                        lg:w-[93%] lg:mt-5
+                    ">
                         <div
-                            className="specific-project-info"
-                        >
-                            <h2 className="secondary-header">
-                                {project?.name}
-                            </h2>
+                            style={{backgroundImage: `url(${project?.img})`}}
+                            className="
+                                hidden md:block bg-center bg-cover md:rounded-2xl blur-md scale-110 absolute inset-0
+                            "
+                        />
+                            <div
+                                key={index}
+                                className="specific-project-container"
+                            >
+                                <div className="specific-project-img-container">
+                                    <img 
+                                        src={computerScreen}
+                                        className="computer-screen"
+                                    />
 
-                            <SecondaryTitleUnderline />
+                                    <img 
+                                        src={project?.img}
+                                        className="project-img"
+                                    />
+                                </div>
+                                
+                                
+                                    <div
+                                        className="specific-project-info"
+                                    >
+                                        <h2 className="secondary-header">
+                                            {project?.name}
+                                        </h2>
 
-                            <p className="flex justify-self-center mb-2 font-bold">
-                                {project?.start_date}{" - "} 
-                                    <span className={`${project?.end_date
-                                        ? null 
-                                        :"text-red-500"}`
-                                    }>
-                                        {project?.end_date
-                                            ? project.end_date
-                                            : "In Progress"    
-                                        }
-                                    </span>
-                            </p>
+                                        <SecondaryTitleUnderline />
 
-                            <p className="text-center mb-2">
-                                {project?.intro}
-                            </p>
+                                        <p className="flex self-center mb-2 font-bold">
+                                            {project?.start_date}{" - "} 
+                                                <span className={`${project?.end_date
+                                                    ? null 
+                                                    :"text-red-500"}`
+                                                }>
+                                                    {project?.end_date
+                                                        ? project.end_date
+                                                        : "In Progress"    
+                                                    }
+                                                </span>
+                                        </p>
 
-                            <ul className="list-disc pl-5 space-y-1">
-                                {projectPoints.map((point, index) => (
-                                    <li key={index}>
-                                        {point?.point}
-                                    </li>
-                                ))}
-                            </ul>
+                                        <p className="text-center mb-2">
+                                            {project?.intro}
+                                        </p>
 
-                            <div className="grid grid-cols-2">
-                                {renderTech(fETech, "Frontend", true)}
-                                {renderTech(bETech, "Backend")}
+                                        <ul className="list-disc pl-5 space-y-1">
+                                            {projectPoints.map((point, index) => (
+                                                <li key={index}>
+                                                    {point?.point}
+                                                </li>
+                                            ))}
+                                        </ul>
+
+                                        <div className="grid grid-cols-2">
+                                            {renderTech(fETech, "Frontend", true)}
+                                            {renderTech(bETech, "Backend")}
+                                        </div>
+
+                                        <div className="project-button-div">
+                                            {projectLinkButton(projectGitUrl, "GitHub Repo", "git-repo-button")}
+
+                                            {projectLinkButton(projectWebUrl, "Web App", "web-link-button")}
+                                        </div>
+                                    </div>
                             </div>
-                        </div>
-
-                        <div className="project-button-div">
-                            {projectLinkButton(projectGitUrl, "GitHub Repo", "git-repo-button")}
-
-                            {projectLinkButton(projectWebUrl, "Web App", "web-link-button")}
-                        </div>
                     </div>
                 )
             })}

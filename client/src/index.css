@@ -106,6 +106,15 @@
             flex 
             flex-col
             w-full
+            relative
+            
+            md:z-10
+            md:grid
+            md:grid-cols-2
+            md:justify-self-center
+            md:rounded-2xl
+            md:bg-black/40
+            md:text-white
             ;
     }
 
@@ -119,17 +128,28 @@
 
     .computer-screen{
         @apply
-            w-4/5
+            w-97/100
+            h-[7/10]
+            ;
     }
 
     .project-img{
         @apply
             absolute
             top-3
-            w-7/10
-            /* w-70/100 */
-            /* h-29 */
+            w-9/10
+            h-[55%]
+
+            md:w-9/10
+            md:top-5
+            md:h-55/100
             ;
+    }
+
+    .specific-project-info{
+        @apply
+            flex
+            flex-col
     }
 
     .project-button-div{
@@ -159,6 +179,9 @@
             uppercase
     }
 }
+
+/* ------------------------------------ CONTACT ------------------------------------ */
+
 
 /* ------------------------------------ SOCIALS ------------------------------------ */
 @layer components{

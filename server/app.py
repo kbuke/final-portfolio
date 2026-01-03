@@ -6,6 +6,7 @@ from resources.Projects import ProjectList, SpecificProject
 from resources.ProjectTech import ProjectTechList, SpecificProjectTech
 from resources.ProjectPoints import ProjectPointsList, SpecificProjectPoints
 from resources.Socials import SocialsList, SpecificSocial
+from resources.Institute import InstituteList, SpecificInstitute
 from resources.Email import EmailList
 
 api.add_resource(UserList, "/users")
@@ -25,6 +26,9 @@ api.add_resource(SpecificProjectPoints, "/points/<int:id>")
 
 api.add_resource(SocialsList, "/socials")
 api.add_resource(SpecificSocial, "/socials/<int:id>")
+
+api.add_resource(InstituteList, "/institutes")
+api.add_resource(SpecificInstitute, "/institutes/<int:id>")
 
 api.add_resource(EmailList, "/emails")
 

@@ -11,7 +11,8 @@ class ProjectList(BaseResource):
         "projectStartDate": "start_date",
         "projectEndDate": "end_date",
         "webUrl": "web_url",
-        "gitUrl": "git_url"
+        "gitUrl": "git_url",
+        "instituteId": "institute_id"
     }
 
     def get(self):
@@ -30,7 +31,8 @@ class SpecificProject(BaseResource):
         "projectStartDate": "start_date",
         "projectEndDate": "end_date",
         "webUrl": "web_url",
-        "gitUrl": "git_url"
+        "gitUrl": "git_url",
+        "instituteId": "institute_id"
     }
 
     def get(self, id):

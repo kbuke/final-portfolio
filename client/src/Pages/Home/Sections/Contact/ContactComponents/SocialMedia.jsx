@@ -6,9 +6,11 @@ export function SocialMedia({
 }){
     const allSocials = appData?.allSocials
 
-    console.log(allSocials)
     return(
-        <div className='grid grid-cols-2'>
+        <div className='
+            grid grid-cols-2
+            lg:grid-cols-3
+        '>
             {allSocials?.map((social, index) => (
                 <div key={index} className="flex justify-center mt-4">
                     <a href={social?.url} className='social-icon'>

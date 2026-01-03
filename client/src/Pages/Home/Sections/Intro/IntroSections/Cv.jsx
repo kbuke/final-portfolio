@@ -4,11 +4,14 @@ export function Cv({
     userCv,
     setPopUp
 }){
-    console.log(userCv)
     const cvForm = (
         <img 
             src={userCv}
-            className="h-[90%] w-[90%]"
+            className="
+                h-[90%] w-[90%]
+                md:w-[60%]
+                lg:w-[30%]
+            "
             alt="kaan-buke-cv"
         />
     )

@@ -24,9 +24,13 @@ class ProjectModel(db.Model, SerializerMixin):
 
     points = db.relationship("ProjectPointModel", back_populates = "project")
 
+    institute_id = db.Column(db.ForeignKey("institutes.id"))
+    institute = db.relationship("InstituteModel", back_populates = "projects")
+
     serialize_rules = (
         "-tech.projects",
         "-points.project",
+        "-institute.projects",
     )
 
     # VALIDATE PROJECT NAME
