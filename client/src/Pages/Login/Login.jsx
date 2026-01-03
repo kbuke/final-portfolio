@@ -21,6 +21,8 @@ export function Login(){
     const isLoading = appData?.isLoading
     const setIsLoading = appData?.setIsLoading
 
+    console.log(loggedUser)
+
     const handleLogin = (formData) => {
         usePost({
             url: "/api/login",
@@ -90,14 +92,28 @@ export function Login(){
                     Login
                 </h2>
 
-                {loginInputs(loginArray)}
+                {loggedUser
+                    ? <h2>You are already logged in</h2>
+                    : <>
+                        {loginInputs(loginArray)}
+
+                        <button className="
+                            bg-linear-to-r from-green-600 to-green-800
+                            uppercase tracking-wider
+                        ">
+                            Login
+                        </button>
+                    </>
+                }
+
+                {/* {loginInputs(loginArray)}
 
                 <button className="
                     bg-linear-to-r from-green-600 to-green-800
                     uppercase tracking-wider
                 ">
                     Login
-                </button>
+                </button> */}
             </form>
         </div>
     )
