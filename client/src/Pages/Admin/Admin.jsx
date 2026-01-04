@@ -1,4 +1,5 @@
 import { useOutletContext, useNavigate } from "react-router"
+import { AdminInstitutes } from "./Sections/AdminInstitutes/AdminInstitutes"
 
 export function Admin(){
     const appData = useOutletContext()
@@ -7,8 +8,6 @@ export function Admin(){
     const setLoggedUser = appData?.setLoggedUser
 
     const navigate = useNavigate()
-
-    console.log(loggedUser)
 
     const logOut = () => {
         fetch("/api/logout", {
@@ -31,6 +30,12 @@ export function Admin(){
                 >
                     Log Out
                 </button>
+
+                <div className="p-2 absolute top-20 w-full">
+                <AdminInstitutes 
+                    appData={appData}
+                />
+                </div>
             </div>
             :<div>
                 <h1>You must log in to access this page</h1>

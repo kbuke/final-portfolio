@@ -12,12 +12,14 @@ function App() {
     const [allProjects, setAllProjects] = useState()
     const [allEmails, setAllEmails] = useState()
     const [allSocials, setAllSocials] = useState()
+    const [allInstitutes, setAllInstitutes] = useState()
 
     useFetch("/api/users/1", setAllUsers)
     useFetch("/api/technologies", setAllTech)
     useFetch("/api/projects", setAllProjects)
     useFetch("/api/emails", setAllEmails)
     useFetch("/api/socials", setAllSocials)
+    useFetch("/api/institutes", setAllInstitutes)
 
 
     const {
@@ -25,7 +27,9 @@ function App() {
         handleSubmit,
         formState: {errors},
         reset,
-        control
+        control,
+        setValue,
+        unregister
     } = useForm()
 
     const outletContext = {
@@ -36,9 +40,11 @@ function App() {
         allEmails, setAllEmails,
         allProjects, setAllProjects,
         allSocials, setAllSocials,
+        allInstitutes, setAllInstitutes,
 
         register, handleSubmit,
-        errors, reset, control
+        errors, reset, control,
+        setValue, unregister
     }
 
 

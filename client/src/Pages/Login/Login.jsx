@@ -3,6 +3,7 @@ import { FormGroup } from "../../Components/FormGroup"
 import { TextContainers } from "../../Components/TextContainers"
 import { useNavigate, useOutletContext } from "react-router"
 import { usePost } from "../../Hooks/usePost"
+import { LoadingIcon } from "../../Components/LoadingIcon"
 
 export function Login(){
     const [loginError, setLoginError] = useState(false)
@@ -20,8 +21,6 @@ export function Login(){
     const handleSubmit = appData?.handleSubmit
     const isLoading = appData?.isLoading
     const setIsLoading = appData?.setIsLoading
-
-    console.log(loggedUser)
 
     const handleLogin = (formData) => {
         usePost({
@@ -63,9 +62,8 @@ export function Login(){
 
     const loginInputs = (inputArray) => (
         inputArray?.map((input, index) => (
-            <>
+            <div key={index}>
                 <input 
-                    key={index}
                     placeholder={input?.placeholder}
                     type={input?.type}
                     {...register(input?.name, input?.validation)}
@@ -73,7 +71,7 @@ export function Login(){
                 />
 
                 <FormGroup errorMessage={errors?.[input.name]?.message} />
-            </>
+            </div>
         ))
     )
 
@@ -95,6 +93,22 @@ export function Login(){
                 {loggedUser
                     ? <h2>You are already logged in</h2>
                     : <>
+                        {loginError
+                            ? <div className="
+                                bg-linear-to-r from-red-500 to-red-700 w-full
+                                mb-2 h-10 justify-center items-center flex rounded-2xl
+                                text-white
+                            ">
+                                {loginError}
+                            </div>
+                            : null
+                        }
+
+                        {isLoading
+                            ? <LoadingIcon />
+                            : null
+                        }
+
                         {loginInputs(loginArray)}
 
                         <button className="
@@ -105,15 +119,6 @@ export function Login(){
                         </button>
                     </>
                 }
-
-                {/* {loginInputs(loginArray)}
-
-                <button className="
-                    bg-linear-to-r from-green-600 to-green-800
-                    uppercase tracking-wider
-                ">
-                    Login
-                </button> */}
             </form>
         </div>
     )

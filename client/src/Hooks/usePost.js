@@ -6,7 +6,7 @@ export async function usePost({
     setLoading,
     setCompleted,
     setEndActionState,
-    credentials = "same-origin"
+    credentials = "same-origin",
 }) {
     setLoading?.(true)
     setCompleted?.(false)
