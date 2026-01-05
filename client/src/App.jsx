@@ -13,13 +13,15 @@ function App() {
     const [allEmails, setAllEmails] = useState()
     const [allSocials, setAllSocials] = useState()
     const [allInstitutes, setAllInstitutes] = useState()
+    const [allPoints, setAllPoints] = useState()
 
     useFetch("/api/users/1", setAllUsers)
     useFetch("/api/technologies", setAllTech)
-    useFetch("/api/projects", setAllProjects)
+    useFetch("/api/projects", setAllProjects, [allPoints])
     useFetch("/api/emails", setAllEmails)
     useFetch("/api/socials", setAllSocials)
     useFetch("/api/institutes", setAllInstitutes)
+    useFetch("/api/points", setAllPoints)
 
 
     const {
@@ -31,6 +33,39 @@ function App() {
         setValue,
         unregister
     } = useForm()
+
+    // Handle Inputs from user
+    const textInputObject = (textType, placeholder, variableName, nullable, unique, allArray, variable, options, currentId=null) => {
+        const validation = {}
+
+        if(!nullable){
+            validation.required = `Please enter ${placeholder}`
+        }
+
+        if(unique){
+            validation.validate = value => {
+                const exists = allArray?.some(instance => {
+                    if(!instance?.variable) return false
+
+                    const sameValue = instance[variable].toLowerCase() === value.toLowerCase()
+
+                    const differentId = currentId? instance?.id !== currentId : true
+
+                    return sameValue && differentId
+                })
+
+                return !exists || `${value} is already a registered ${placeholder}`
+            }
+        }
+
+        return{
+            type: textType,
+            placeholder: `Please enter ${placeholder}`,
+            name: variableName,
+            options: textType==="select" ? options : null,
+            validation
+        }
+    }
 
     const outletContext = {
         isLoading, setIsLoading,
@@ -44,7 +79,9 @@ function App() {
 
         register, handleSubmit,
         errors, reset, control,
-        setValue, unregister
+        setValue, unregister,
+
+        textInputObject
     }
 
 

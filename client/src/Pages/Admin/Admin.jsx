@@ -1,6 +1,7 @@
 import { useOutletContext, useNavigate } from "react-router"
 import { AdminInstitutes } from "./Sections/AdminInstitutes/AdminInstitutes"
 import { AdminTech } from "./Sections/AdminTech/AdminTech"
+import { AdminProjects } from "./Sections/AdminProjects/AdminProjects"
 
 export function Admin(){
     const appData = useOutletContext()
@@ -22,17 +23,6 @@ export function Admin(){
         .then(navigate("/login"))
     }
 
-    const spanContainer = (text, value) => {
-        return(
-            <p>
-                <span className="font-bold">
-                    {text}
-                </span> 
-                {value}
-            </p>
-        )
-    }
-
     return(
         loggedUser
             ?<div>
@@ -46,12 +36,14 @@ export function Admin(){
                 <div className="p-2 absolute top-20 w-full">
                 <AdminInstitutes 
                     appData={appData}
-                    spanContainer={spanContainer}
                 />
 
                 <AdminTech 
                     appData={appData}
-                    spanContainer={spanContainer}
+                />
+
+                <AdminProjects 
+                    appData={appData}
                 />
                 </div>
             </div>

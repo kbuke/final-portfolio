@@ -2,10 +2,10 @@ import { useState } from "react"
 import { PostInstitute } from "./CRUD-Actions/PostInstitute"
 import { DeleteInstitute } from "./CRUD-Actions/DeleteInstitute"
 import { PatchInstitute } from "./CRUD-Actions/PatchInstitute"
+import { AdminBaseResource } from "../../../../Components/AdminBaseSection"
 
 export function AdminInstitutes({
     appData,
-    spanContainer
 }){
     const [instituteAction, setInstituteAction] = useState()
     const [instituteName, setInstituteName] = useState()
@@ -22,23 +22,7 @@ export function AdminInstitutes({
     const setValue = appData?.setValue
     const unregister = appData?.unregister
 
-    const adminInstituteEditDeleteButton = (buttonText, action, instituteName, instituteId) => {
-        return(
-            <button 
-                onClick={() => {
-                    setInstituteAction(action)
-                    setInstituteName(instituteName)
-                    setSelectedinstituteId(instituteId)
-                }}
-                className={`${action === "patch"
-                    ? "edit-instance-button"
-                    : "delete-instance-button"
-                }`}
-            >
-                {buttonText}
-            </button>
-        )
-    }
+    const textInputObject = appData?.textInputObject
 
     const instituteInputArray = [
         {
@@ -108,43 +92,13 @@ export function AdminInstitutes({
 
     return(
         <div>
-            <div className="instance-div-container">
-                <h1 className="admin-section-header">Institutes</h1>
-
-                <button
-                    className="post-instance-button"
-                    onClick={() => setInstituteAction("post")}
-                >
-                    Add Institute
-                </button>
-            </div>
-
-            {allInstitutes.map((institute, index) => {
-                return(
-                    <div
-                        key={index}
-                        className="border-b p-2"
-                    >
-                        <h2 className="instance-section-header">
-                            {institute?.name}
-                        </h2>
-
-                        <div className="flex gap-2 mb-2 justify-center">
-                            {adminInstituteEditDeleteButton("Edit Project", "patch", institute?.name, institute?.id)}
-                            {adminInstituteEditDeleteButton("Delete Project", "delete", institute?.name, institute?.id)}
-                        </div>
-
-                        {spanContainer("Start Date: ", institute?.start_date)}
-                        {spanContainer("End Date: ", institute?.end_date)}
-
-                        <img 
-                            src={institute?.logo}
-                            className="instance-img"
-                        />
-                        <p>{institute?.info}</p>
-                    </div>
-                )
-            })}
+            <AdminBaseResource 
+                modelType={"Institute"}
+                allInstances={allInstitutes}
+                setModelAction={setInstituteAction}
+                setInstanceName={setInstituteName}
+                setInstanceId={setSelectedinstituteId}
+            />
 
             {instituteAction === "post"
                 ? <PostInstitute 
