@@ -204,3 +204,57 @@
     }
 }
 
+/* ------------------------------------ ADMIN ------------------------------------ */
+@layer components{
+    .post-instance-button{
+        @apply
+            bg-linear-to-r from-green-500 to-green-600
+            uppercase
+    }
+
+    .instance-div-container{
+        @apply
+            flex 
+            flex-col
+            justify-center
+            items-center
+            border-b
+            p-2
+    }
+
+    .admin-section-header{
+        @apply
+            uppercase
+            tracking-wider 
+            text-[50px]
+            text-red-500
+            font-bold
+    }
+
+    .instance-section-header{
+        @apply
+            uppercase
+            font-bold
+            text-lg
+            justify-self-center
+    }
+
+    .edit-instance-button{
+        @apply
+            bg-linear-to-r from-blue-500 to-blue-600
+            uppercase
+    }
+
+    .delete-instance-button{
+        @apply
+            bg-linear-to-r from-red-500 to-red-700
+            uppercase
+    }
+
+    .instance-img{
+        @apply
+            h-15
+            w-15 
+            rounded-full
+    }
+}

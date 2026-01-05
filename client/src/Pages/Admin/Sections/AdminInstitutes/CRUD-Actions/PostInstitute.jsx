@@ -24,7 +24,13 @@ export function PostInstitute({
         if(!instituteAction) return
 
         if(instituteAction === "post"){
-            reset()
+            reset({
+                instituteName: "",
+                instituteLogo: "",
+                instituteInfo: "",
+                instituteStartDate: "",
+                instituteEndDate: ""
+            })
         }
     }, [])
 
@@ -32,7 +38,7 @@ export function PostInstitute({
         if(formData.instituteEndDate === undefined){
             formData.instituteEndDate===null
         }
-        console.log(formData)
+
         usePost({
             url: "/api/institutes",
             body: formData,

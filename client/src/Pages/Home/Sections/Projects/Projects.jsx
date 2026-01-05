@@ -75,7 +75,7 @@ export function Projects({
                     <div className="
                         relative overflow-hidden mt-3 
                         md:w-[98%] md:rounded-2xl md:justify-self-center
-                        lg:w-[93%] lg:mt-5
+                        lg:w-[90%] lg:mt-5
                     ">
                         <div
                             style={{backgroundImage: `url(${project?.img})`}}

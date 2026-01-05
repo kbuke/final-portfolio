@@ -1,10 +1,15 @@
 import { useState } from "react"
 import { PostInstitute } from "./CRUD-Actions/PostInstitute"
+import { DeleteInstitute } from "./CRUD-Actions/DeleteInstitute"
+import { PatchInstitute } from "./CRUD-Actions/PatchInstitute"
 
 export function AdminInstitutes({
-    appData
+    appData,
+    spanContainer
 }){
     const [instituteAction, setInstituteAction] = useState()
+    const [instituteName, setInstituteName] = useState()
+    const [selectedInstituteId, setSelectedinstituteId] = useState()
 
     const allInstitutes = appData?.allInstitutes
     const setAllInstitutes = appData?.setAllInstitutes
@@ -16,6 +21,24 @@ export function AdminInstitutes({
     const reset = appData?.reset
     const setValue = appData?.setValue
     const unregister = appData?.unregister
+
+    const adminInstituteEditDeleteButton = (buttonText, action, instituteName, instituteId) => {
+        return(
+            <button 
+                onClick={() => {
+                    setInstituteAction(action)
+                    setInstituteName(instituteName)
+                    setSelectedinstituteId(instituteId)
+                }}
+                className={`${action === "patch"
+                    ? "edit-instance-button"
+                    : "delete-instance-button"
+                }`}
+            >
+                {buttonText}
+            </button>
+        )
+    }
 
     const instituteInputArray = [
         {
@@ -85,11 +108,11 @@ export function AdminInstitutes({
 
     return(
         <div>
-            <div className="flex flex-col justify-center items-center border-b p-2">
-                <h1>Institutes</h1>
+            <div className="instance-div-container">
+                <h1 className="admin-section-header">Institutes</h1>
 
                 <button
-                    className="bg-linear-to-r from-green-500 to-green-600"
+                    className="post-instance-button"
                     onClick={() => setInstituteAction("post")}
                 >
                     Add Institute
@@ -100,10 +123,25 @@ export function AdminInstitutes({
                 return(
                     <div
                         key={index}
+                        className="border-b p-2"
                     >
-                        <h2>
+                        <h2 className="instance-section-header">
                             {institute?.name}
                         </h2>
+
+                        <div className="flex gap-2 mb-2 justify-center">
+                            {adminInstituteEditDeleteButton("Edit Project", "patch", institute?.name, institute?.id)}
+                            {adminInstituteEditDeleteButton("Delete Project", "delete", institute?.name, institute?.id)}
+                        </div>
+
+                        {spanContainer("Start Date: ", institute?.start_date)}
+                        {spanContainer("End Date: ", institute?.end_date)}
+
+                        <img 
+                            src={institute?.logo}
+                            className="instance-img"
+                        />
+                        <p>{institute?.info}</p>
                     </div>
                 )
             })}
@@ -123,7 +161,30 @@ export function AdminInstitutes({
                     setValue={setValue}
                     unregister={unregister}
                 />
-                : null
+                : instituteAction === "delete"
+                ? <DeleteInstitute 
+                    setInstituteAction={setInstituteAction}
+                    setInstituteName={setInstituteName}
+                    instituteName={instituteName}
+                    setSelectedInstituteId={setSelectedinstituteId}
+                    selectedInstituteId={selectedInstituteId}
+                    setAllInstitutes={setAllInstitutes}
+                    handleSubmit={handleSubmit}
+                />
+                : instituteAction === "patch"
+                ?<PatchInstitute 
+                    selectedInstituteId={selectedInstituteId}
+                    reset={reset}
+                    instituteInputArray={instituteInputArray}
+                    setInstituteAction={setInstituteAction}
+                    register={register}
+                    errors={errors}
+                    setValue={setValue}
+                    unregister={unregister}
+                    setAllInstitutes={setAllInstitutes}
+                    handleSubmit={handleSubmit}
+                />
+                :null
             }
         </div>
     )

@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { FormGroup } from "./FormGroup";
+import ReactSelect from "react-select"
+import { Controller } from "react-hook-form";
 
 export function TextContainers({ 
   inputArray, 
   register, 
   errors, 
+  control,
   setValue,
   unregister,
   endDate
@@ -12,11 +15,11 @@ export function TextContainers({
   const [inProgress, setInProgress] = useState(true)
 
   useEffect(() => {
-    if(inProgress){
+    if(inProgress && setValue && endDate){
       setValue(endDate, null)
       unregister(endDate)
     }
-  }, [inProgress])
+  }, [inProgress, setValue, endDate])
 
   return (
     <>
@@ -71,7 +74,22 @@ export function TextContainers({
                 />
               }
             </div>
-            :(
+            :
+            input?.type === "select" ? (
+              <Controller
+                name={input.name}
+                control={control}
+                rules={{ required: "Please select a tech type" }}
+                render={({ field }) => (
+                  <ReactSelect
+                    {...field}
+                    options={input.options}
+                    onChange={field.onChange}
+                  />
+                )}
+              />
+            ) :
+            (
               <textarea
                 placeholder={input.placeholder}
                 className="rounded w-full text-center bg-white lg:h-40 border"
