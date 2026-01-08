@@ -13,6 +13,9 @@ export async function usePost({
   setLoading?.(true);
   setCompleted?.(false);
 
+  console.log("Posting to:", `${BASE_URL}${endpoint}`);
+
+
   try {
     const res = await fetch(`${BASE_URL}${endpoint}`, {
       method: "POST",
