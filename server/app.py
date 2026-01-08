@@ -1,5 +1,7 @@
 from config import app, api, db
 
+from flask import send_from_directory
+
 import os
 
 from resources.User import SpecificUser, UserList
@@ -48,6 +50,14 @@ api.add_resource(CheckSession, "/session")
 @app.route("/health")
 def health():
     return "OK", 200
+
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def serve(path):
+    if path != "" and os.path.exists(f"client_build/{path}"):
+        return send_from_directory("client_build", path)
+    else:
+        return send_from_directory("client_build", "index.html")
 
 
 if __name__ == "__main__":
