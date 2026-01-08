@@ -7,8 +7,6 @@ from flask_bcrypt import Bcrypt
 from sqlalchemy import MetaData
 from dotenv import load_dotenv
 
-# Create passkey for project and then download load_dotenv from dotenv below
-
 import os
 
 load_dotenv()
