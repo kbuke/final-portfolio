@@ -25,6 +25,8 @@ function App() {
     useFetch("/points", setAllPoints)
     useFetch("/projecttech", setAllProjectTech)
 
+    console.log("hi there")
+
 
     const {
         register,
