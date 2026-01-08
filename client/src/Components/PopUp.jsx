@@ -7,7 +7,7 @@ export function PopUp({
 }){
     return(
         <div
-            className="h-full w-full fixed top-0 z-10 bg-black flex flex-col justify-center items-center"
+            className="h-full w-full fixed top-0 z-100 bg-black flex flex-col justify-center items-center"
         >
             <FontAwesomeIcon 
                 icon={faTimes}

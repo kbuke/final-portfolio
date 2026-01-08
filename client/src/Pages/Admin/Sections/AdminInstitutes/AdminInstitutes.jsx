@@ -3,9 +3,12 @@ import { PostInstitute } from "./CRUD-Actions/PostInstitute"
 import { DeleteInstitute } from "./CRUD-Actions/DeleteInstitute"
 import { PatchInstitute } from "./CRUD-Actions/PatchInstitute"
 import { AdminBaseResource } from "../../../../Components/AdminBaseSection"
+import { text } from "@fortawesome/fontawesome-svg-core"
 
 export function AdminInstitutes({
     appData,
+    successfulCrud,
+    failedCrud
 }){
     const [instituteAction, setInstituteAction] = useState()
     const [instituteName, setInstituteName] = useState()
@@ -25,69 +28,11 @@ export function AdminInstitutes({
     const textInputObject = appData?.textInputObject
 
     const instituteInputArray = [
-        {
-            type: "text",
-            placeholder: "Please enter institute name",
-            name: "instituteName",
-            validation: {
-                required: "Please enter the institutes name", 
-                validate: value => {
-                    const exists = allInstitutes.some(
-                        institute => institute?.name?.toLowerCase() === value.toLowerCase()
-                    )
-                    return !exists || `${value} is already a registered institute`
-                }
-            }
-        },
-
-        {
-            type: "text",
-            placeholder: "Please enter institute logo",
-            name: "instituteLogo",
-            validation: {
-                required: "Please enter institute logo"
-            }
-        },
-
-        {
-            type: "textarea",
-            placeholder: "Please enter institute info",
-            name: "instituteInfo",
-            validation: {
-                required: "Please enter info about institute"
-            }
-        },
-
-        {
-            type: "date",
-            placeholder: null,
-            name: "instituteStartDate",
-            label: "Institute Start Date",
-            validation: {
-                required: "Please enter institute start date"
-            }
-        },
-
-        {
-            type: "date",
-            placeholder: null,
-            label: "Institute End Date",
-            name: "instituteEndDate",
-            endDate: true,
-            validation: {
-                validate: (endDate, formValues) => {
-                    if(!endDate) return true
-
-                    const startDate = formValues.instituteStartDate
-                    if(!startDate) return true
-
-                    return(
-                        new Date(endDate) > new Date(startDate) ||
-                        "End date must be after the start date"
-                    )
-                }
-            }
-        } 
+        textInputObject("text", "Institute Name", "instituteName", false, true, allInstitutes, "name", null, selectedInstituteId),
+        textInputObject("text", "Institute Logo", "instituteLogo", false, true, allInstitutes, "logo", null, selectedInstituteId),
+        textInputObject("textarea", "Institute Info", "instituteInfo", false, true, allInstitutes, "info", null, selectedInstituteId),
+        textInputObject("date", "Start Date", "instituteStartDate", false, false, allInstitutes, "start_date"),
+        textInputObject("date", "End Date", "instituteEndDate", true, false, allInstitutes, "end_date", null, selectedInstituteId, "instituteStartDate")
     ]
 
     return(
@@ -114,6 +59,8 @@ export function AdminInstitutes({
                     reset={reset}
                     setValue={setValue}
                     unregister={unregister}
+                    successfulCrud={successfulCrud}
+                    failedCrud={failedCrud}
                 />
                 : instituteAction === "delete"
                 ? <DeleteInstitute 

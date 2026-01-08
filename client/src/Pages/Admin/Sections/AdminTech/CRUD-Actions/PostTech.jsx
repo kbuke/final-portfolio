@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { usePost } from "../../../../../Hooks/usePost";
 import { TextContainers } from "../../../../../Components/TextContainers";
 import { PopUp } from "../../../../../Components/PopUp";
-import ReactSelect from "react-select"
 
 export function PostTech({
     setAllTech,
@@ -14,8 +13,6 @@ export function PostTech({
     handleSubmit,
     setIsLoading,
     reset,
-    setValue,
-    unregister,
     control
 }){
     const [postTech, setPostTech] = useState()
@@ -53,14 +50,26 @@ export function PostTech({
     const newTechForm = () => {
         return(
             <form
-                className="bg-white h-140 w-70 rounded flex flex-col justify-center items-center"
+                className="popup-container-form"
                 onSubmit={handleSubmit(handleTechPost)}
             >
+                {postTech
+                    ? <div className="successful-crud">
+                        Posted New Tech
+                    </div>
+                    : null
+                }
+
+                {postTechError
+                    ? <div className="unsuccessful-crud">
+                        {postTechError}
+                    </div>
+                    : null
+                }
+
+
                 <h2
-                   className="
-                        font-bold uppercase tracking-wider text-red-500 underline underline-offset-3
-                        mb-3 text-12" 
-                >
+                   className="popup-container-header" >
                     Add New Tech
                 </h2>
                 <TextContainers 

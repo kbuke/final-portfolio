@@ -5,7 +5,6 @@ export function DeletePoint({
     setPointAction,
     setSelectedPointId,
     selectedPointId,
-    allPoints, 
     setAllPoints,
     setProjectRelation,
     handleSubmit

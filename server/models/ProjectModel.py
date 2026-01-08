@@ -70,26 +70,45 @@ class ProjectModel(db.Model, SerializerMixin):
 
         return value
     
+    @validates("web_url")
+    def validate_web_url(self, key, value):
+        if value == "":
+            return None
+
+        if value:
+            value = validate_uniqueness(value, self, ProjectModel, key, "Project Model")
+
+        return value
+
+    @validates("git_url")
+    def validate_git_url(self, key, value):
+        if value == "":
+            return None
+
+        if value:
+            value = validate_uniqueness(value, self, ProjectModel, key, "Project Model")
+
+        return value
+
+
+    
     def validate_institute_dates(self):
         start_date = self.start_date
         end_date = self.end_date
-        
-        institute_id = self.institute_id
-        institute = InstituteModel.query.filter(InstituteModel.id == institute_id).first()
-        institute_start_date = institute.start_date
-        institute_end_date = institute.end_date
+        institute = self.institute
 
-        if start_date < institute_start_date:
-            raise ValueError("Must have started project after starting institute")
+        if not institute:
+            return
+
+        institute_start = institute.start_date
+        institute_end = institute.end_date
+
+        # Validate start date
+        if institute_start and start_date < institute_start:
+            raise ValueError("Project cannot start before institute start date")
+
+        # Validate end date ONLY if institute has an end date
+        if end_date and institute_end and end_date > institute_end:
+            raise ValueError("Project cannot end after institute end date")
+
         
-        if institute_end_date and start_date > institute_end_date:
-            raise ValueError("Must have finished the project before finishing at the institute")
-        
-        if end_date and end_date < institute_start_date:
-            raise ValueError("Project must have finished after starting at the institute")
-        
-        if end_date and end_date > institute_end_date:
-            raise ValueError("Project must have ended before finishing at the institute")
-        
-        if not end_date and institute_end_date:
-            raise ValueError("You must have finished the project if you have finished at the institute")

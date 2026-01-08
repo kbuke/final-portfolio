@@ -1,104 +1,98 @@
-import { useEffect, useState } from "react";
-import { FormGroup } from "./FormGroup";
+import { useState, useEffect } from "react"
+import { Controller } from "react-hook-form"
 import ReactSelect from "react-select"
-import { Controller } from "react-hook-form";
+import { FormGroup } from "./FormGroup"
 
 export function TextContainers({ 
   inputArray, 
   register, 
   errors, 
   control,
-  setValue,
-  unregister,
-  endDate
+  setValue
 }) {
-  const [inProgress, setInProgress] = useState(true)
+
+  const [checkboxStates, setCheckboxStates] = useState({})
 
   useEffect(() => {
-    if(inProgress && setValue && endDate){
-      setValue(endDate, null)
-      unregister(endDate)
+    // Initialize checkbox states for all end_date fields
+    const initStates = {}
+    inputArray.forEach(input => {
+      if(input.name.includes("endDate") || input.type==="date" && input.isEndDate){
+        initStates[input.name] = !input.defaultValue // true if value is null
+      }
+    })
+    setCheckboxStates(initStates)
+  }, [inputArray])
+
+  const handleCheckboxChange = (name) => {
+    const newState = !checkboxStates[name]
+    setCheckboxStates(prev => ({ ...prev, [name]: newState }))
+    if(newState){
+      setValue(name, null)
     }
-  }, [inProgress, setValue, endDate])
+  }
 
   return (
     <>
-      {inputArray?.map((input, index) => (
-        <div key={index} className="flex flex-col w-[90%] justify-center items-center mb-2">
-          {input.type === "text" || input.type === "password"? (
-            <input
-              type={input.type}
-              placeholder={input.placeholder}
-              className="rounded w-full border text-center bg-white"
-              {...register(input.name, input.validation)}
-            />
-          ) : 
-          input?.type === "date"
-            ?
-            <div className="w-full flex flex-col justify-center items-center">
-              <p className="font-bold">
-                {input?.label}
-              </p>
-              {input?.endDate?
-                inProgress
-                  ? <div className="flex flex-col justify-center items-center">
+      {inputArray?.map((input, index) => {
+        const isEndDate = input.isEndDate
+        const checkboxChecked = checkboxStates[input.name]
+
+        return (
+          <div key={index} className="flex flex-col w-[90%] justify-center items-center mb-2">
+            {input.type === "text" || input.type === "password" ? (
+              <input
+                type={input.type}
+                placeholder={input.placeholder}
+                className="rounded w-full border text-center bg-white"
+                {...register(input.name, input.validation)}
+              />
+            ) : input.type === "date" ? (
+              <div className="w-full flex flex-col justify-center items-center">
+                {isEndDate && (
+                  <div className="flex items-center mb-2">
                     <input 
                       type="checkbox"
-                      checked={inProgress}
-                      onChange={() => setInProgress(!inProgress)}
+                      checked={checkboxChecked}
+                      onChange={() => handleCheckboxChange(input.name)}
+                      className="mr-2"
                     />
-                    <p>In Progress</p>
+                    <span>In Progress</span>
                   </div>
-                  : <div className="flex flex-col w-full items-center justify-center">
-                      <div className="w-full justify-center items-center flex flex-col">
-                        <input 
-                          type="checkbox"
-                          checked={inProgress}
-                          onChange={() => setInProgress(!inProgress)}
-                          
-                        />
-                        <p>In Progress?</p>
-                      </div>
+                )}
 
-                      <input 
-                        type={input?.type}
-                        className="border w-full"
-                        {...register(input.name, input.validation)}
-                      />
-                  </div>
-                :
-                <input 
-                  type={input?.type}
-                  className="border w-full"
-                  {...register(input.name, input.validation)}
-                />
-              }
-            </div>
-            :
-            input?.type === "select" ? (
+                {(!isEndDate || !checkboxChecked) && (
+                  <input 
+                    type="date"
+                    className="border w-full"
+                    {...register(input.name, input.validation)}
+                  />
+                )}
+              </div>
+            ) : input.type === "select" ? (
               <Controller
                 name={input.name}
                 control={control}
-                rules={{ required: "Please select a tech type" }}
+                rules={{ required: "Please select a value" }}
                 render={({ field }) => (
-                  <ReactSelect
-                    {...field}
-                    options={input.options}
-                    onChange={field.onChange}
+                  <ReactSelect {...field} options={input.options} onChange={field.onChange} 
+                    className="crud-react-select"
                   />
                 )}
               />
-            ) :
-            (
+            ) : (
               <textarea
                 placeholder={input.placeholder}
                 className="rounded w-full text-center bg-white lg:h-40 border"
                 {...register(input.name, input.validation)}
               />
             )}
-          <FormGroup errorMessage={errors?.[input.name]?.message}/>
-        </div>
-      ))}
+
+            <FormGroup errorMessage={errors?.[input.name]?.message}/>
+          </div>
+        )
+      })}
     </>
   )
 }
+

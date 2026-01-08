@@ -5,7 +5,7 @@ import { PatchTech } from "./CRUD-Actions/PatchTech"
 import { AdminBaseResource } from "../../../../Components/AdminBaseSection"
 
 export function AdminTech({
-    appData,
+    appData
 }){
     const [techAction, setTechAction] = useState()
     const [techName, setTechName] = useState()
@@ -34,8 +34,6 @@ export function AdminTech({
         textInputObject("text", "Tech Logo", "techLogo", false, true, allTech, "logo", null, selectedTechId),
         textInputObject("select", "Tech Type", "techType", false, false, allTech, "tech_type", availableTechTypes, selectedTechId)
     ]
-
-    console.log(allTech)
 
     return(
         <>

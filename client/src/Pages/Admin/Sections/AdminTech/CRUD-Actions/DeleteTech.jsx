@@ -23,12 +23,10 @@ export function DeleteTech({
 
     const deleteTechForm = () => {
         return(
-            <form className="
-                bg-white flex flex-col justify-center items-center
-                w-[90%] h-[35%] rounded"
+            <form className="popup-container-form"
                 onSubmit={handleSubmit(handleDeleteTech)}
             >
-                <p className="uppercase font-bold">Delete {techName}?</p>
+                <p className="popup-container-header">Delete {techName}?</p>
 
                 <button className="bg-red-600">
                     Delete

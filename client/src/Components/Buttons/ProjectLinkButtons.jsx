@@ -4,7 +4,9 @@ export function ProjectLinkButtons({
     buttonType
 }){
     return(
-        <button className={buttonType}>
+        <button className={`
+            ${buttonType} hover-buttons
+        `}>
             <a
                 href={link}
                 target="_blank"

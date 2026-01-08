@@ -13,9 +13,9 @@ export function Contact({
             <SectionUnderline />
 
             <div className="
-                justify-self-center w-full
+                justify-self-center w-full mt-2
                 md:grid md:grid-cols-[3fr_7fr] md:gap-2 md:mt-3 md:justify-center md:items-center
-                md:p-2 md:bg-linear-to-br from-blue-500/60 to-blue-700/60 md:rounded-2xl
+                md:p-2 md:bg-linear-to-br md:rounded-2xl bg-gray-200
                 lg:w-[93%] lg:p-10
             ">
                 <SocialMedia 

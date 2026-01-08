@@ -1,54 +1,75 @@
-import { useEffect, useState } from "react"
-import frontMan from "../../../../Resources/front-man.png"
-import { Cv } from "./IntroSections/Cv"
+import { useState } from "react"
+import { TechStack } from "../TechStack/TechStack"
+import { PopUp } from "../../../../Components/PopUp"
 
 export function Intro({
-    appData
+    appData,
+    faceMe
 }){
-    const [frontendTech, setFrontendTech] = useState()
     const [openCv, setOpenCv] = useState()
+    const [chosenTechType, setChosenTechType] = useState("Frontend")
 
     const userInfo = appData?.allUsers
 
     const userCv = userInfo?.cv
-
-    const allTech = appData?.allTech
-
-    useEffect(() => (
-        setFrontendTech(allTech?.filter(tech => tech?.tech_type === "Frontend"))
-    ), [allTech])
+    const renderCv = <img 
+        src={userCv}
+        alt="my-cv"
+        className="z-100"
+    />
 
     return(
-        <div className="user-intro-section">
-            <p>
-                {userInfo?.intro}
-            </p>
+        <>
+            <div
+                className="
+                    flex flex-col lg:grid lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-4 
+                    lg:p-4 lg:w-98/100 lg:justify-self-center 
+                "
+                id="intro-section"
+            >
+                <div>
+                    <h1 className="uppercase font-extrabold justify-self-center ml-2 text-[60px]">
+                        {userInfo?.name}
+                    </h1>
 
-            <div className="intro-button-container">
-                <button className="cv-button" onClick={() => setOpenCv(true)}>
-                    C.V.
-                </button>
+                    <p className="lg:font-semibold ml-2 justify-self-center whitespace-pre-wrap  lg:w-3/5">
+                        {userInfo?.intro}
+                    </p>
+ 
+                    <div className="flex gap-2 justify-center">
+                        <button className="cv-button hover-buttons" onClick={() => setOpenCv(true)}>
+                            C.V.
+                        </button>
 
-                <a className="
-                    contact-button w-40 h-15 mt-5 rounded-xl text-white text-center flex justify-center items-center
-                " href="#contact-section">
-                    Contact Me
-                </a>
-            </div>
+                        <a className="
+                            green-button hover-buttons
+                            " href="#contact-section"
+                        >
+                            Contact Me
+                        </a>
+                    </div>
 
-            <div>
-                <img 
-                    src={frontMan}
+                    <img 
+                        src={faceMe}
+                        alt="face-pic"
+                        className="md:w-3/5 md:justify-self-center md:h-80"
+                    />
+                </div>
+
+                <TechStack 
+                    appData={appData}
+                    chosenTechType={chosenTechType}
+                    setChosenTechType={setChosenTechType}
                 />
             </div>
 
             {openCv
-                ? <Cv 
-                    userCv={userCv}
+                ? <PopUp 
                     setPopUp={setOpenCv}
+                    formContainer={renderCv}
                 />
                 : null
             }
-        </div>
+        </>
     )
 }

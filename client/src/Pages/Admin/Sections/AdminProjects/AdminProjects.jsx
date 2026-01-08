@@ -5,9 +5,12 @@ import { useFetch } from "../../../../Hooks/useFetch"
 import { PostProject } from "./CrudActions/PostProject"
 import { DeleteProject } from "./CrudActions/DeleteProject"
 import { PatchProject } from "./CrudActions/PatchProject"
+import { ProjectTech } from "./Relations/Tech/ProjectTech"
 
 export function AdminProjects({
-    appData
+    appData,
+    successfulCrud,
+    failedCrud
 }){
     const [projectAction, setProjectAction] = useState()
     const [projectName, setProjectName] = useState()
@@ -21,6 +24,11 @@ export function AdminProjects({
 
     const allPoints = appData?.allPoints
     const setAllPoints = appData?.setAllPoints
+
+    const allTech = appData?.allTech
+
+    const allProjectTech = appData?.allProjectTech
+    const setAllProjectTech = appData?.setAllProjectTech
 
     const allInstitutes = appData?.allInstitutes
 
@@ -46,11 +54,11 @@ export function AdminProjects({
         textInputObject("text", "Project Name", "projectName", false, true, allProjects, "name", null, selectedProjectId),
         textInputObject("textarea", "Project Intro", "projectIntro", false, true, allProjects, "intro", null, selectedProjectId),
         textInputObject("text", "Project Img", "projectImg", false, true, allProjects, "img", null, selectedProjectId),
+        textInputObject("select", "Institute", "instituteId", false, false, allProjects, "institute_id", instituteOptions, selectedProjectId),
         textInputObject("date", "Project Start", "projectStartDate", false, false, allProjects, "start_date", null, selectedProjectId),
         textInputObject("date", "Project End", "projectEndDate", true, false, allProjects, "end_date", null, selectedProjectId),
         textInputObject("text", "Web URL", "webUrl", true, true, allProjects, "web_url", null, selectedProjectId),
-        textInputObject("text", "Git URL", "gitUrl", true, true, allProjects, "git_url", null, selectedProjectId),
-        textInputObject("select", "Institute", "instituteId", false, false, allProjects, "institute_id", instituteOptions, selectedProjectId)
+        textInputObject("text", "Git URL", "gitUrl", true, true, allProjects, "git_url", null, selectedProjectId)
     ]
 
     return(
@@ -73,6 +81,35 @@ export function AdminProjects({
                     allPoints={allPoints}
                     setAllPoints={setAllPoints}
                     handleSubmit={handleSubmit}
+                    textInputObject={textInputObject}
+                    register={register}
+                    errors={errors}
+                    setIsLoading={setIsLoading}
+                    reset={reset}
+                    successfulCrud={successfulCrud}
+                    failedCrud={failedCrud}
+                />
+                : null
+            }
+
+            {projectRelation === "tech"
+                ? <ProjectTech 
+                    allTech={allTech}
+                    selectedProject={selectedProject}
+                    setProjectRelation={setProjectRelation}
+                    selectedProjectId={selectedProjectId}
+                    projectName={projectName}
+                    allProjectTech={allProjectTech}
+                    setAllProjectTech={setAllProjectTech}
+                    handleSubmit={handleSubmit}
+                    register={register}
+                    errors={errors}
+                    setIsLoading={setIsLoading}
+                    reset={reset}
+                    control={control}
+                    textInputObject={textInputObject}
+                    successfulCrud={successfulCrud}
+                    failedCrud={failedCrud}
                 />
                 : null
             }
@@ -91,6 +128,8 @@ export function AdminProjects({
                     setValue={setValue}
                     unregister={unregister}
                     control={control}
+                    successfulCrud={successfulCrud}
+                    failedCrud={failedCrud}
                 />
                 : null
             }
@@ -121,6 +160,7 @@ export function AdminProjects({
                     setAllProjects={setAllProjects}
                     handleSubmit={handleSubmit}
                     control={control}
+                    allProjects={allProjects}
                 />
                 : null
             }

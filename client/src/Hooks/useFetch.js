@@ -1,24 +1,22 @@
 import { useEffect } from "react";
 
-export function useFetch(url, setState, dependancies=[]){
+export function useFetch(url, setState, dependencies = []) {
     useEffect(() => {
-        const controller = new AbortController()
+        if (!url || url.includes("undefined")) return;
 
-        fetch(url, {signal: controller.signal})
-        .then(r => {
-            if(r.ok){
-                return r.json()
-            }
-            throw r
-        })
-        .then(instances => setState(instances))
+        const controller = new AbortController();
 
-        .catch(e => {
-            if(e.name === "AbortError") return;
-            console.error("Fetch error:", e);
-        })
-        return () => {
-            controller.abort()
-        }
-    }, [url, ...dependancies])
+        fetch(url, { signal: controller.signal })
+            .then(r => {
+                if (r.ok) return r.json();
+                throw r;
+            })
+            .then(data => setState(data))
+            .catch(e => {
+                if (e.name === "AbortError") return;
+                console.error("Fetch error:", e);
+            });
+
+        return () => controller.abort();
+    }, [url, ...dependencies]);
 }

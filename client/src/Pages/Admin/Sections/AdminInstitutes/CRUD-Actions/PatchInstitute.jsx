@@ -49,12 +49,10 @@ export function PatchInstitute({
 
     const patchInstituteForm = () => {
         return(
-            <form className="
-                bg-white h-[90%] w-[90%] rounded flex flex-col
-                justify-center items-center"
+            <form className="popup-container-form"
                 onSubmit={handleSubmit(handlePatchInstitute)}
             >
-                <h2>Edit {selectedInstitute?.name}</h2>
+                <h2 className="popup-container-header">Edit {selectedInstitute?.name}</h2>
 
                 <TextContainers 
                     inputArray={instituteInputArray}

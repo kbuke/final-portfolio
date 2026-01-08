@@ -7,7 +7,6 @@ import { LoadingIcon } from "../../Components/LoadingIcon"
 
 export function Login(){
     const [loginError, setLoginError] = useState(false)
-    const [loggedIn, setLoggedIn] = useState(false)
 
     const navigate = useNavigate()
 
@@ -67,7 +66,7 @@ export function Login(){
                     placeholder={input?.placeholder}
                     type={input?.type}
                     {...register(input?.name, input?.validation)}
-                    className="bg-white mb-2 w-full text-center rounded h-10"
+                    className="bg-white mb-2 w-full lg:w-100 text-center rounded h-10"
                 />
 
                 <FormGroup errorMessage={errors?.[input.name]?.message} />
@@ -82,7 +81,7 @@ export function Login(){
             <form
                 className="
                     rounded-xl p-10 bg-black/40 text-center w-[80%] md:w-[40%] lg:w-[30%]
-                    flex flex-col justify-center items-center
+                    flex flex-col justify-center items-center border
                 "
                 onSubmit={handleSubmit(handleLogin)}
             >
@@ -113,7 +112,7 @@ export function Login(){
 
                         <button className="
                             bg-linear-to-r from-green-600 to-green-800
-                            uppercase tracking-wider
+                            uppercase tracking-wider text-white
                         ">
                             Login
                         </button>

@@ -5,7 +5,6 @@ import { usePost } from "../../../../../Hooks/usePost";
 
 export function PostInstitute({
     setAllInstitutes,
-    allInstitutes,
     instituteInputArray,
     instituteAction,
     setInstituteAction,
@@ -15,10 +14,14 @@ export function PostInstitute({
     setIsLoading,
     reset,
     setValue,
-    unregister
+    unregister,
+    successfulCrud,
+    failedCrud
 }){
     const [postInstitute, setPostInstitute] = useState()
     const [postInstanceError, setPostInstanceError] = useState()
+
+    console.log(postInstanceError)
 
     useEffect(() => {
         if(!instituteAction) return
@@ -35,8 +38,8 @@ export function PostInstitute({
     }, [])
 
     const handleInstitutePost = (formData) => {
-        if(formData.instituteEndDate === undefined){
-            formData.instituteEndDate===null
+        if(formData.instituteEndDate === ""){
+            formData.instituteEndDate=null
         }
 
         usePost({
@@ -55,15 +58,17 @@ export function PostInstitute({
     const newInstituteForm = () => {
         return(
             <form 
-                className="bg-white h-140 w-70 rounded flex flex-col justify-center items-center"
+                className="popup-container-form"
                 onSubmit={handleSubmit(handleInstitutePost)}
             >
-                <h2 className="
-                    font-bold uppercase tracking-wider text-red-500 underline underline-offset-3
-                    mb-3 text-12
-                ">
+                <h2 className="popup-container-header">
                     Add New Institute
                 </h2>
+
+                {successfulCrud(postInstitute, "New Institute Posted")}
+                {failedCrud(postInstanceError, "Failed to created Institute")}
+
+
                 <TextContainers 
                     inputArray={instituteInputArray}
                     register={register}

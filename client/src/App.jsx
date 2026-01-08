@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { Outlet } from "react-router"
 
 import { useFetch } from "./Hooks/useFetch"
@@ -13,15 +13,17 @@ function App() {
     const [allEmails, setAllEmails] = useState()
     const [allSocials, setAllSocials] = useState()
     const [allInstitutes, setAllInstitutes] = useState()
-    const [allPoints, setAllPoints] = useState()
+    const [allPoints, setAllPoints] = useState([])
+    const [allProjectTech, setAllProjectTech] = useState([])
 
     useFetch("/api/users/1", setAllUsers)
     useFetch("/api/technologies", setAllTech)
-    useFetch("/api/projects", setAllProjects, [allPoints])
+    useFetch("/api/projects", setAllProjects)
     useFetch("/api/emails", setAllEmails)
     useFetch("/api/socials", setAllSocials)
     useFetch("/api/institutes", setAllInstitutes)
     useFetch("/api/points", setAllPoints)
+    useFetch("/api/projecttech", setAllProjectTech)
 
 
     const {
@@ -35,7 +37,7 @@ function App() {
     } = useForm()
 
     // Handle Inputs from user
-    const textInputObject = (textType, placeholder, variableName, nullable, unique, allArray, variable, options, currentId=null) => {
+    const textInputObject = (textType, placeholder, variableName, nullable, unique, allArray, variable, options, currentId=null, dependantVriable, defaultValue=null) => {
         const validation = {}
 
         if(!nullable){
@@ -44,45 +46,78 @@ function App() {
 
         if(unique){
             validation.validate = value => {
+                if(!value) return true
+                
                 const exists = allArray?.some(instance => {
-                    if(!instance?.variable) return false
-
+                    if(!instance?.[variable])return false
                     const sameValue = instance[variable].toLowerCase() === value.toLowerCase()
-
-                    const differentId = currentId? instance?.id !== currentId : true
-
+                    const differentId = currentId ? instance.id !== currentId : true
                     return sameValue && differentId
                 })
-
                 return !exists || `${value} is already a registered ${placeholder}`
             }
         }
 
-        return{
+        // Mark end_date fields
+        const isEndDate = variable === "end_date"
+
+        return {
             type: textType,
             placeholder: `Please enter ${placeholder}`,
             name: variableName,
             options: textType==="select" ? options : null,
-            validation
+            validation,
+            isEndDate,
+            defaultValue
         }
     }
 
-    const outletContext = {
+
+    const outletContext = useMemo(() => ({
         isLoading, setIsLoading,
         loggedUser, setLoggedUser,
+
         allUsers, setAllUsers,
         allTech, setAllTech,
         allEmails, setAllEmails,
         allProjects, setAllProjects,
         allSocials, setAllSocials,
         allInstitutes, setAllInstitutes,
+        allPoints, setAllPoints,
+        allProjectTech, setAllProjectTech,
 
-        register, handleSubmit,
-        errors, reset, control,
-        setValue, unregister,
+        register,
+        handleSubmit,
+        errors,
+        reset,
+        control,
+        setValue,
+        unregister,
 
         textInputObject
-    }
+    }), [
+        isLoading,
+        loggedUser,
+
+        allUsers,
+        allTech,
+        allEmails,
+        allProjects,
+        allSocials,
+        allInstitutes,
+        allPoints,
+        allProjectTech,
+
+        register,
+        handleSubmit,
+        errors,
+        reset,
+        control,
+        setValue,
+        unregister,
+        textInputObject
+    ])
+
 
 
     return(

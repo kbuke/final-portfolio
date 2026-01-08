@@ -5,7 +5,6 @@ import { usePost } from "../../../../../Hooks/usePost";
 
 export function PostProject({
     setAllProjects,
-    allProjects,
     projectInputArray,
     projectAction,
     setProjectAction,
@@ -16,7 +15,9 @@ export function PostProject({
     reset,
     setValue,
     unregister,
-    control
+    control,
+    successfulCrud,
+    failedCrud
 }){
     const [postProject, setPostProject] = useState()
     const [postProjecteError, setPostProjectError] = useState()
@@ -39,11 +40,8 @@ export function PostProject({
     }, [])
 
     const handleProjectPost = (formData) => {
-        console.log(formData)
-        // if(formData.instituteEndDate === undefined){
-        //     formData.instituteEndDate===null
-        // }  
         formData.instituteId = formData.instituteId.value
+        console.log(formData)
 
         usePost({
             url: "/api/projects",
@@ -61,15 +59,17 @@ export function PostProject({
     const newProjectForm = () => {
         return(
             <form 
-                className="bg-white h-140 w-70 rounded flex flex-col justify-center items-center"
+                className="popup-container-form"
                 onSubmit={handleSubmit(handleProjectPost)}
             >
-                <h2 className="
-                    font-bold uppercase tracking-wider text-red-500 underline underline-offset-3
-                    mb-3 text-12
-                ">
+                <h2 className="popup-container-header">
                     Add New Project
                 </h2>
+
+                {successfulCrud(postProject, "Successfully posted project")}
+                {failedCrud(postProjecteError, "Error posting project")}
+
+
                 <TextContainers 
                     inputArray={projectInputArray}
                     register={register}

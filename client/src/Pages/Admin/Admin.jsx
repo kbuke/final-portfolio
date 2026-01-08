@@ -2,6 +2,7 @@ import { useOutletContext, useNavigate } from "react-router"
 import { AdminInstitutes } from "./Sections/AdminInstitutes/AdminInstitutes"
 import { AdminTech } from "./Sections/AdminTech/AdminTech"
 import { AdminProjects } from "./Sections/AdminProjects/AdminProjects"
+import { AdminUser } from "./Sections/AdminUser/AdminUser"
 
 export function Admin(){
     const appData = useOutletContext()
@@ -23,6 +24,25 @@ export function Admin(){
         .then(navigate("/login"))
     }
 
+    const successfulCrud = (actionSuccess, text) => {
+        return(
+            actionSuccess
+                ? <div className="successful-crud">
+                    {text}
+                </div>
+                : null
+        )
+    }
+
+    const failedCrud = (actionFail, text) => {
+        return(actionFail
+            ? <div>
+                {text}
+            </div>
+            : null
+        )
+    }
+
     return(
         loggedUser
             ?<div>
@@ -34,16 +54,28 @@ export function Admin(){
                 </button>
 
                 <div className="p-2 absolute top-20 w-full">
+                <AdminUser 
+                    appData={appData}
+                    successfulCrud={successfulCrud}
+                    failedCrud={failedCrud}
+                />
+
                 <AdminInstitutes 
                     appData={appData}
+                    successfulCrud={successfulCrud}
+                    failedCrud={failedCrud}
                 />
 
                 <AdminTech 
                     appData={appData}
+                    successfulCrud={successfulCrud}
+                    failedCrud={failedCrud}
                 />
 
                 <AdminProjects 
                     appData={appData}
+                    successfulCrud={successfulCrud}
+                    failedCrud={failedCrud}
                 />
                 </div>
             </div>

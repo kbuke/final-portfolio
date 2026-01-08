@@ -10,7 +10,6 @@ export function SendEmail({
     const [emailError, setEmailError] = useState(false)
     const [emailSent, setEmailSent] = useState(false)
 
-    const allEmails = appData?.allEmails
     const setAllEmails = appData?.setAllEmails
 
     const register = appData?.register
@@ -69,14 +68,15 @@ export function SendEmail({
         <form
             className="
                 rounded-2xl mt-3 justify-center items-center p-3 flex flex-col
-                bg-linear-to-br from-purple-300 to-purple-500
             "
             onSubmit={handleSubmit(handleNewEmail)}
         >
-            <h2 className="secondary-header text-red-200">
+            <h2 className="secondary-header">
                 Email Me
             </h2>
-            <SecondaryTitleUnderline />
+            <div 
+                className="w-4/5 h-2 mb-2 rounded-2xl bg-red-400 lg:w-2/5"
+            />
             
             {isLoading
                 ? <LoadingIcon />

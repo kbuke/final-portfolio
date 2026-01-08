@@ -2,15 +2,24 @@ import { useState } from "react";
 import { PopUp } from "../../../../../../Components/PopUp";
 import { useFetch } from "../../../../../../Hooks/useFetch";
 import { DeletePoint } from "./CrudActions/DeletePoint";
+import { PostPoint } from "./CrudActions/PostPoint";
+import { PatchProject } from "../../CrudActions/PatchProject";
+import { PatchPoint } from "./CrudActions/PatchPoint";
 
 export function ProjectPoints({
-    setSelectedProjectId,
     selectedProjectId,
     setProjectRelation,
     selectedProject,
     allPoints, 
     setAllPoints,
-    handleSubmit
+    handleSubmit,
+    textInputObject,
+    register,
+    errors,
+    setIsLoading,
+    reset,
+    successfulCrud,
+    failedCrud
 }){
     const [pointAction, setPointAction] = useState()
     const [selectedPointId, setSelectedPointId] = useState()
@@ -18,13 +27,25 @@ export function ProjectPoints({
 
     const projectPoints = selectedProject?.points
 
-    useFetch(`/api/points/${selectedPointId}`, setSelectedPoint, [selectedPointId])
+    useFetch(`/api/points/${selectedPointId}`, setSelectedPoint, [selectedPointId, projectPoints])
+
+    const projectPointInputArray = [
+        textInputObject("text", "Project Point", "projectPoint", false, false, allPoints, "point", null)
+    ]
     
 
     const specificProjectPoints = () => {
         return(
             <div className="bg-white h-[90%] w-[90%] flex flex-col justify-center items-center overflow-y-auto">
                 <h2 className="font-bold uppercase text-[25px]">{selectedProject?.name} Points</h2>
+
+                <button 
+                    className="post-instance-button"
+                    onClick={() => setPointAction("post")}
+                >
+                    Add Point
+                </button>
+
                 {projectPoints?.map((specificPoint, index) => (
                     <div 
                         key={index}
@@ -45,6 +66,10 @@ export function ProjectPoints({
 
                             <button
                                 className="bg-blue-400 h-10 w-20"
+                                onClick={() => {
+                                    setPointAction("patch")
+                                    setSelectedPointId(specificPoint?.id)
+                                }}
                             >
                                 Edit
                             </button>
@@ -67,6 +92,35 @@ export function ProjectPoints({
                             allPoints={allPoints}
                             setAllPoints={setAllPoints}
                             setProjectRelation={setProjectRelation}
+                            handleSubmit={handleSubmit}
+                        />
+                        : pointAction === "post"
+                        ? <PostPoint 
+                            setAllPoints={setAllPoints}
+                            pointInputArray={projectPointInputArray}
+                            pointAction={pointAction}
+                            setPointAction={setPointAction}
+                            register={register}
+                            errors={errors}
+                            handleSubmit={handleSubmit}
+                            setIsLoading={setIsLoading}
+                            reset={reset}
+                            selectedProjectId={selectedProjectId}
+                            setProjectRelation={setProjectRelation}
+                            successfulCrud={successfulCrud}
+                            failedCrud={failedCrud}
+                        />
+                        : pointAction === "patch"
+                        ? <PatchPoint 
+                            selectedPointId={selectedPointId}
+                            selectedProjectId={selectedProjectId}
+                            selectedPoint={selectedPoint}
+                            reset={reset}
+                            pointInputArray={projectPointInputArray}
+                            setPointAction={setPointAction}
+                            register={register}
+                            errors={errors}
+                            setAllPoints={setAllPoints}
                             handleSubmit={handleSubmit}
                         />
                         : specificProjectPoints()

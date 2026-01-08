@@ -23,12 +23,10 @@ export function DeleteInstitute({
 
     const deleteInstituteForm = () => {
         return(
-            <form className="
-                bg-white flex flex-col justify-center items-center
-                w-[90%] h-[35%] rounded"
+            <form className="popup-container-form"
                 onSubmit={handleSubmit(handleDeleteInstitute)}
             >
-                <p className="uppercase font-bold">Delete {instituteName}?</p>
+                <p className="popup-container-header">Delete {instituteName}?</p>
 
                 <button className="bg-red-600">
                     Delete

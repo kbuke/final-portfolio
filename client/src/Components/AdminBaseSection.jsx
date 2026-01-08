@@ -73,10 +73,6 @@ export function AdminBaseResource({
                 const projectInstitute = checkExists(instance.institute)
                 const projectWebUrl = checkExists(instance?.web_url)
                 const projectGitUrl = checkExists(instance?.git_url)
-                const projectPoints = checkExists(instance?.points)
-                const projectTech = checkExists(instance?.tech)
-                const projectFe = projectTech?.filter(project => project?.tech_type === "Frontend")
-                const projectBe = projectTech?.filter(project => project?.tech_type === "Backend")
 
                 return(
                     <div
@@ -136,6 +132,11 @@ export function AdminBaseResource({
 
                                     <button
                                         className="bg-linear-to-r from-yellow-400 to-yellow-700 uppercase"
+                                        onClick={() => {
+                                            setProjectRelation("tech")
+                                            setInstanceId(instance?.id)
+                                            setInstanceName(instance?.name)
+                                        }}
                                     >
                                         Tech
                                     </button>

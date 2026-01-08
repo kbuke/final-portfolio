@@ -10,21 +10,22 @@ export const router = createBrowserRouter([
         path: "/",
         element: <App />,
         children: [
-            // Create object with path and element keys 
             {
-                path: "/",
+                index: true,
                 element: <Home />
             },
-
             {
-                path: "/login",
+                path: "login",
                 element: <Login />
             },
-
             {
-                path: "/admin",
+                path: "admin",
                 element: <Admin />
+            },
+            {
+                path: "*",
+                element: <Navigate to="/" replace />
             }
         ]
     }
-])
+]);

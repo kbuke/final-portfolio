@@ -37,7 +37,6 @@ export function PatchProject({
     }, [selectedProject, reset])
 
     const handlePatchProject = (formData) => {
-        console.log(formData)
         const patchData = {
             projectName: formData.projectName,
             projectIntro: formData.projectIntro,
