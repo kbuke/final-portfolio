@@ -44,7 +44,7 @@ export function PostProject({
         console.log(formData)
 
         usePost({
-            url: "/api/projects",
+            url: "/projects",
             body: formData,
             setLoading: setIsLoading,
             setCompleted: setPostProject,

@@ -23,7 +23,7 @@ export function DeleteProjectTech({
 
     const handleDeletePoint = () => {
         useDelete(
-            `/api/projecttech/${chosenProjectTechId}`,
+            `/projecttech/${chosenProjectTechId}`,
             setAllProjectTech,
             setTechId,
             setTechAction

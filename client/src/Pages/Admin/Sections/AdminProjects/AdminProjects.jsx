@@ -32,7 +32,7 @@ export function AdminProjects({
 
     const allInstitutes = appData?.allInstitutes
 
-    useFetch(`/api/projects/${selectedProjectId}`, setSelectedProject, [selectedProjectId, allPoints])
+    useFetch(`/projects/${selectedProjectId}`, setSelectedProject, [selectedProjectId, allPoints])
 
     const register = appData?.register 
     const errors = appData?.errors

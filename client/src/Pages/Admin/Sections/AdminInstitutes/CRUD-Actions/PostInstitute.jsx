@@ -43,7 +43,7 @@ export function PostInstitute({
         }
 
         usePost({
-            url: "/api/institutes",
+            url: "/institutes",
             body: formData,
             setLoading: setIsLoading,
             setCompleted: setPostInstitute,

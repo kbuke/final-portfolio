@@ -19,7 +19,7 @@ export function PatchProject({
 }){
     const [selectedProject, setSelectedProject] = useState()
 
-    useFetch(`api/projects/${selectedProjectId}`, setSelectedProject, [selectedProjectId])
+    useFetch(`/projects/${selectedProjectId}`, setSelectedProject, [selectedProjectId])
 
     useEffect(() => {
         if(selectedProject){

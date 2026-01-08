@@ -12,7 +12,7 @@ export function DeleteProject({
 }){
     const handleDeleteProject = () => {
         useDelete(
-            `/api/projects/${selectedProjectId}`,
+            `/projects/${selectedProjectId}`,
             setAllProjects,
             selectedProjectId,
             setProjectAction

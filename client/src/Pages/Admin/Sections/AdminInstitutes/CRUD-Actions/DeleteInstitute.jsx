@@ -12,7 +12,7 @@ export function DeleteInstitute({
 }){
     const handleDeleteInstitute = () => {
         useDelete(
-            `/api/institutes/${selectedInstituteId}`,
+            `/institutes/${selectedInstituteId}`,
             setAllInstitutes,
             selectedInstituteId,
             setInstituteAction

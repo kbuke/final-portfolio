@@ -23,7 +23,7 @@ export function Login(){
 
     const handleLogin = (formData) => {
         usePost({
-            url: "/api/login",
+            url: "/login",
             body: formData,
             credentials: "include",
             setLoading: setIsLoading,

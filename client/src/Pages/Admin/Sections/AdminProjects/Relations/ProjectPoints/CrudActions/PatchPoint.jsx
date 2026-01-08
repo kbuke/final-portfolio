@@ -30,7 +30,7 @@ export function PatchPoint({
         }
 
         usePatch(
-            patchData, `/api/points/${selectedPointId}`,
+            patchData, `/points/${selectedPointId}`,
             selectedPointId, setAllPoints, setPointAction
         )
     }

@@ -17,7 +17,7 @@ export function PatchTech({
 }){
     const [selectedTech, setSelectedTech] = useState()
 
-    useFetch(`api/technologies/${selectedTechId}`, setSelectedTech, [selectedTechId])
+    useFetch(`/technologies/${selectedTechId}`, setSelectedTech, [selectedTechId])
 
     useEffect(() => {
         if(selectedTech){

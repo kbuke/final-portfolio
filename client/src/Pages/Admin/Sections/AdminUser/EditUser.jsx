@@ -55,7 +55,7 @@ export function EditUser({
         }
 
         usePatchItem(
-            patchData, `/api/users/${allUsers.id}`,
+            patchData, `/users/${allUsers.id}`,
             setAllUsers, setEditUser
         )
     }

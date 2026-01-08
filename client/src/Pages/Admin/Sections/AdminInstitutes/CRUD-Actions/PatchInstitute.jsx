@@ -18,7 +18,7 @@ export function PatchInstitute({
 }){
     const [selectedInstitute, setSelectedInstitute] = useState()
 
-    useFetch(`api/institutes/${selectedInstituteId}`, setSelectedInstitute, [selectedInstituteId])
+    useFetch(`/institutes/${selectedInstituteId}`, setSelectedInstitute, [selectedInstituteId])
 
     useEffect(() => {
         if(selectedInstitute){

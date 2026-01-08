@@ -12,7 +12,7 @@ export function DeleteTech({
 }){
     const handleDeleteTech = () => {
         useDelete(
-            `/api/technologies/${selectedTechId}`,
+            `/technologies/${selectedTechId}`,
             setAllTech,
             selectedTechId,
             setTechAction

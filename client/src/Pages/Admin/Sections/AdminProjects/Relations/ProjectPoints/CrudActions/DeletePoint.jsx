@@ -11,7 +11,7 @@ export function DeletePoint({
 }){
     const handleDeletePoint = () => {
         useDelete(
-            `/api/points/${selectedPointId}`,
+            `/points/${selectedPointId}`,
             setAllPoints,
             selectedPointId,
             setProjectRelation

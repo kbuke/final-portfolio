@@ -13,7 +13,7 @@ export function Admin(){
     const navigate = useNavigate()
 
     const logOut = () => {
-        fetch("/api/logout", {
+        fetch("/logout", {
             method: "DELETE"
         })
         .then(r => {

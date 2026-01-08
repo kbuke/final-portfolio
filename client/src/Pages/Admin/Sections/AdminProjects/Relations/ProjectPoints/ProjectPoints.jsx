@@ -27,7 +27,7 @@ export function ProjectPoints({
 
     const projectPoints = selectedProject?.points
 
-    useFetch(`/api/points/${selectedPointId}`, setSelectedPoint, [selectedPointId, projectPoints])
+    useFetch(`/points/${selectedPointId}`, setSelectedPoint, [selectedPointId, projectPoints])
 
     const projectPointInputArray = [
         textInputObject("text", "Project Point", "projectPoint", false, false, allPoints, "point", null)
