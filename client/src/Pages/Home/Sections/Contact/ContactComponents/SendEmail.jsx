@@ -18,6 +18,8 @@ export function SendEmail({
     const isLoading = appData?.isLoading
     const setIsLoading = appData?.setIsLoading
 
+    console.log("can you see me?")
+
     // const handleNewEmail = (formData) => {
     //     usePost({
     //         endpoint: "/emails",
@@ -39,12 +41,12 @@ export function SendEmail({
             setLoading: setIsLoading,
             setCompleted: setEmailSent,
             onError: (err) => {
-            console.error("Post error:", err);
-            setEmailError(true);
+                console.error("Post error:", err);
+                setEmailError(true);
             },
             onSuccess: (newEmail) => {
-            console.log("Email created:", newEmail);
-            setAllEmails(prev => [...prev, newEmail]);
+                console.log("Email created:", newEmail);
+                setAllEmails(prev => [...prev, newEmail]);
             }
         });
 
