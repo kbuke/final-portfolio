@@ -20,7 +20,7 @@ export function SendEmail({
 
     const handleNewEmail = (formData) => {
         usePost({
-            url: "/emails",
+            endpoint: "/emails",
             body: formData,
             setLoading: setIsLoading,
             setCompleted: setEmailSent,

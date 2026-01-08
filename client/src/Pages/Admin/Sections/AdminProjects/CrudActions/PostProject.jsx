@@ -44,7 +44,7 @@ export function PostProject({
         console.log(formData)
 
         usePost({
-            url: "/projects",
+            endpoint: "/projects",
             body: formData,
             setLoading: setIsLoading,
             setCompleted: setPostProject,

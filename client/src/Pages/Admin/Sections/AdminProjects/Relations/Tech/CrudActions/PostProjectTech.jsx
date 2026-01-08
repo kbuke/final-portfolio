@@ -58,7 +58,7 @@ export function PostProjectTech({
         formData.techId = formData.techId.value
 
         usePost({
-            url: "/projecttech",
+            endpoint: "/projecttech",
             body: formData,
             setLoading: setIsLoading, 
             setCompleted: setPostProjectTech,

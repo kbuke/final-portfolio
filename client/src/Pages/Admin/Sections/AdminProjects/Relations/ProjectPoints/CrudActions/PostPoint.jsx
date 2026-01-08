@@ -35,7 +35,7 @@ export function PostPoint({
         formData.projectId = selectedProjectId
         
         usePost({
-            url: "/points",
+            endpoint: "/points",
             body: formData,
             setLoading: setIsLoading,
             setCompleted: setPostPoint,

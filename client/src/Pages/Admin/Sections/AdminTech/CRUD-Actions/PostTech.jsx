@@ -35,7 +35,7 @@ export function PostTech({
         console.log(formData)
         
         usePost({
-            url: "/technologies",
+            endpoint: "/technologies",
             body: formData,
             setLoading: setIsLoading,
             setCompleted: setPostTech,
