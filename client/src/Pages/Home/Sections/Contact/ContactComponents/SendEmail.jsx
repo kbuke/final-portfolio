@@ -92,11 +92,7 @@ export function SendEmail({
             className="
                 rounded-2xl mt-3 justify-center items-center p-3 flex flex-col
             "
-            // onSubmit={handleSubmit(handleNewEmail)}
-            onSubmit={(e) => {
-                e.preventDefault();
-                console.log("Form submitted")
-            }}
+            onSubmit={handleSubmit(handleNewEmail)}
         >
             <h2 className="secondary-header">
                 Email Me
