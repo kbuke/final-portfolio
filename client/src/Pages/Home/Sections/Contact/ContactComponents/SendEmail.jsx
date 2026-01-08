@@ -18,18 +18,39 @@ export function SendEmail({
     const isLoading = appData?.isLoading
     const setIsLoading = appData?.setIsLoading
 
-    const handleNewEmail = (formData) => {
-        usePost({
+    // const handleNewEmail = (formData) => {
+    //     usePost({
+    //         endpoint: "/emails",
+    //         body: formData,
+    //         setLoading: setIsLoading,
+    //         setCompleted: setEmailSent,
+    //         onError: () => setEmailError(true),
+    //         onSuccess: (newEmail) => {
+    //             setAllEmails(prev => [...prev, newEmail])
+    //         }
+    //     })
+    // }
+    const handleNewEmail = async (formData) => {
+        console.log("Form Data:", formData);
+
+        const result = await usePost({
             endpoint: "/emails",
             body: formData,
             setLoading: setIsLoading,
             setCompleted: setEmailSent,
-            onError: () => setEmailError(true),
+            onError: (err) => {
+            console.error("Post error:", err);
+            setEmailError(true);
+            },
             onSuccess: (newEmail) => {
-                setAllEmails(prev => [...prev, newEmail])
+            console.log("Email created:", newEmail);
+            setAllEmails(prev => [...prev, newEmail]);
             }
-        })
-    }
+        });
+
+        console.log("Post result:", result);
+    };
+
 
     const emailArray = [
         {
