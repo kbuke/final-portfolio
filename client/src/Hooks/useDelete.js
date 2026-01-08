@@ -1,11 +1,11 @@
-export function useDelete(url, setState, instanceId, setDelete){
-    fetch(url, {
-        method: "DELETE"
+import { BASE_URL } from "../Config/config";
+
+export function useDelete(endpoint, setState, instanceId, setDelete) {
+  fetch(`${BASE_URL}${endpoint}`, { method: "DELETE" })
+    .then(res => {
+      if (res.ok) {
+        setState(prev => prev.filter(item => item.id !== instanceId));
+      }
     })
-        .then(r => {
-            if(r.ok){
-                setState(states => states.filter(state => state.id !== instanceId))
-            }
-        })
-        .then(() => setDelete(null))
+    .finally(() => setDelete?.(null));
 }

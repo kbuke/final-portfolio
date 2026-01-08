@@ -16,14 +16,14 @@ function App() {
     const [allPoints, setAllPoints] = useState([])
     const [allProjectTech, setAllProjectTech] = useState([])
 
-    useFetch("/api/users/1", setAllUsers)
-    useFetch("/api/technologies", setAllTech)
-    useFetch("/api/projects", setAllProjects)
-    useFetch("/api/emails", setAllEmails)
-    useFetch("/api/socials", setAllSocials)
-    useFetch("/api/institutes", setAllInstitutes)
-    useFetch("/api/points", setAllPoints)
-    useFetch("/api/projecttech", setAllProjectTech)
+    useFetch("/users/1", setAllUsers)
+    useFetch("/technologies", setAllTech)
+    useFetch("/projects", setAllProjects)
+    useFetch("/emails", setAllEmails)
+    useFetch("/socials", setAllSocials)
+    useFetch("/institutes", setAllInstitutes)
+    useFetch("/points", setAllPoints)
+    useFetch("/projecttech", setAllProjectTech)
 
 
     const {
