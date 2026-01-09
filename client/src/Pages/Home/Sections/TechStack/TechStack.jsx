@@ -19,7 +19,7 @@ export function TechStack({
     const apiTech = filterTech("API")
     const cloudTech = filterTech("Cloud Computing")
 
-    const availableTech = ["Frontend", "Backend", "API", "Cloud Computing"]
+    const availableTech = ["All", "Frontend", "Backend", "API", "Cloud Computing"]
 
     const renderTech = (techType) => {
         return(
@@ -84,7 +84,9 @@ export function TechStack({
                 ))}
             </div>
 
-            {chosenTechType === "Frontend"
+            {chosenTechType === "All"
+                ? renderTech(allTech)
+                : chosenTechType === "Frontend"
                 ? renderTech(feTech)
                 : chosenTechType === "Backend"
                 ? renderTech(beTech)

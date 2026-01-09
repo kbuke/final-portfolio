@@ -7,7 +7,7 @@ export function Intro({
     faceMe
 }){
     const [openCv, setOpenCv] = useState()
-    const [chosenTechType, setChosenTechType] = useState("Frontend")
+    const [chosenTechType, setChosenTechType] = useState("All")
 
     const userInfo = appData?.allUsers
 
