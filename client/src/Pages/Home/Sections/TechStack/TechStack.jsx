@@ -66,7 +66,7 @@ export function TechStack({
             </div>
 
             <div 
-                className="grid grid-cols-2 justify-items-center md:grid-cols-4"
+                className="grid grid-cols-2 justify-items-center md:grid-cols-4 lg:grid-cols-5"
             >
                 {availableTech.map((tech, index) => (
                     <button
