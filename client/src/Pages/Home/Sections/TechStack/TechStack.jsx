@@ -75,7 +75,7 @@ export function TechStack({
                             `text-white ${chosenTechType === tech
                                 ? "opacity-100"
                                 : "opacity-60"
-                            } bg-blue-600 lg:h-15 lg:w-35`
+                            } bg-blue-600 lg:h-15 lg:w-32`
                         }
                         onClick={() => setChosenTechType(tech)}
                     >
