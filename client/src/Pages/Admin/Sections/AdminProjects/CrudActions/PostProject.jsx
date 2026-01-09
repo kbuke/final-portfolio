@@ -39,11 +39,10 @@ export function PostProject({
         }
     }, [])
 
-    const handleProjectPost = (formData) => {
+    const handleProjectPost = async (formData) => {
         formData.instituteId = formData.instituteId.value
-        console.log(formData)
 
-        usePost({
+        const result = await (usePost({
             endpoint: "/projects",
             body: formData,
             setLoading: setIsLoading,
@@ -53,7 +52,7 @@ export function PostProject({
             onSuccess: (newProject) => {
                 setAllProjects(prev => [...prev, newProject])
             }
-        })
+        }))
     }
 
     const newProjectForm = () => {

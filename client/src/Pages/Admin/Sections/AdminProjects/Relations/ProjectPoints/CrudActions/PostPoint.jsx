@@ -31,10 +31,10 @@ export function PostPoint({
         }
     }, [])
 
-    const handlePointPost = (formData) => {
+    const handlePointPost = async (formData) => {
         formData.projectId = selectedProjectId
         
-        usePost({
+        const result = await usePost({
             endpoint: "/points",
             body: formData,
             setLoading: setIsLoading,

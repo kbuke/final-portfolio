@@ -21,7 +21,6 @@ export function PostInstitute({
     const [postInstitute, setPostInstitute] = useState()
     const [postInstanceError, setPostInstanceError] = useState()
 
-    console.log(postInstanceError)
 
     useEffect(() => {
         if(!instituteAction) return
@@ -37,12 +36,12 @@ export function PostInstitute({
         }
     }, [])
 
-    const handleInstitutePost = (formData) => {
+    const handleInstitutePost = async (formData) => {
         if(formData.instituteEndDate === ""){
             formData.instituteEndDate=null
         }
 
-        usePost({
+        const result = await (usePost({
             endpoint: "/institutes",
             body: formData,
             setLoading: setIsLoading,
@@ -52,7 +51,7 @@ export function PostInstitute({
             onSuccess: (newInstitute) => {
                 setAllInstitutes(prev => [...prev, newInstitute])
             }
-        })
+        }))
     }
 
     const newInstituteForm = () => {

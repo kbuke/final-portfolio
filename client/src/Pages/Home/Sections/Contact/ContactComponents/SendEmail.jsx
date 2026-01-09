@@ -33,7 +33,6 @@ export function SendEmail({
     //     })
     // }
     const handleNewEmail = async (formData) => {
-        console.log("Form Data:", formData);
 
         const result = await usePost({
             endpoint: "/emails",
@@ -41,16 +40,12 @@ export function SendEmail({
             setLoading: setIsLoading,
             setCompleted: setEmailSent,
             onError: (err) => {
-                console.error("Post error:", err);
                 setEmailError(true);
             },
             onSuccess: (newEmail) => {
-                console.log("Email created:", newEmail);
                 setAllEmails(prev => [...prev, newEmail]);
             }
         });
-
-        console.log("Post result:", result);
     };
 
 
