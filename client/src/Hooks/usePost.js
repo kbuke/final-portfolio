@@ -25,9 +25,11 @@ export async function usePost({
     });
 
     if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err?.error || "Something went wrong");
+      const text = await res.text();
+      console.error("Backend error:", text);
+      throw new Error(text);
     }
+
 
     const data = await res.json();
 
