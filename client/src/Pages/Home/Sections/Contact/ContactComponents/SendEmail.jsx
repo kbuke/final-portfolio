@@ -20,19 +20,8 @@ export function SendEmail({
 
     console.log("can you see me?")
 
-    // const handleNewEmail = (formData) => {
-    //     usePost({
-    //         endpoint: "/emails",
-    //         body: formData,
-    //         setLoading: setIsLoading,
-    //         setCompleted: setEmailSent,
-    //         onError: () => setEmailError(true),
-    //         onSuccess: (newEmail) => {
-    //             setAllEmails(prev => [...prev, newEmail])
-    //         }
-    //     })
-    // }
     const handleNewEmail = async (formData) => {
+
 
         const result = await usePost({
             endpoint: "/emails",

@@ -42,6 +42,8 @@ export function PostProject({
     const handleProjectPost = async (formData) => {
         formData.instituteId = formData.instituteId.value
 
+        console.log(formData)
+
         const result = await (usePost({
             endpoint: "/projects",
             body: formData,
